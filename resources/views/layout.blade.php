@@ -53,6 +53,10 @@
     <script src="{{ asset('assets/lte3/dist/js/adminlte.min.js') }}"></script>
     <!-- date-range-picker -->
     <script src="{{ asset('assets/lte3/plugins/daterangepicker/daterangepicker.js') }}"></script>
+    
+    <!-- input-mask -->
+    <script src="jquery.js"></script>
+    <script src="assets/inputmask/dist/jquery.inputmask.js"></script>
 
 
 
