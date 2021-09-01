@@ -6,26 +6,25 @@ use Illuminate\Http\Request;
 
 class DocumentoController extends Controller
 {
-    public function formulario_documento(){
+    public function nuevo()
+    {
         return view('documento');
     }
 
-    public function guardar(Request $request){
-        if($request->hasFile("urlpdf")){
-            $file=$request->file("urlpdf");
-            
-            $nombre = "pdf_".time().".".$file->guessExtension();
+    public function savePdf(Request $request)
+    {
+        if ($request->hasFile("urlpdf")) {
+            $file = $request->file("urlpdf");
 
-            $ruta = public_path("pdf/".$nombre);
+            $nombre = "pdf_" . time() . "." . $file->guessExtension();
 
-            if($file->guessExtension()=="pdf"){
+            $ruta = public_path("pdf/" . $nombre);
+
+            if ($file->guessExtension() == "pdf") {
                 copy($file, $ruta);
-            }else{
+            } else {
                 dd("NO ES UN PDF");
             }
-
-
-
         }
     }
 }
