@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\DigestoController;
 use App\Http\Controllers\DocumentoController;
+use App\Http\Controllers\HomeController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +21,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Auth::routes();
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+
+
 //llamada al ingresar, tendra filtros y una tabla
 Route::get('/documentos', [DocumentoController::class, 'index'])->name('digesto.index');
 
@@ -31,10 +39,6 @@ Route::post('/documentos/guardar', [DocumentoController::class, 'savePdf'])->nam
 //funcion para editar un documento almacenado en la BD
 //Route::post('/documentos/{doc}/editar', [DocumentoController::class, 'editar'])->name('documento.editar');
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
