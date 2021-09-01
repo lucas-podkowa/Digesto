@@ -30,3 +30,11 @@ Route::post('/documentos/guardar', [DocumentoController::class, 'savePdf'])->nam
 
 //funcion para editar un documento almacenado en la BD
 //Route::post('/documentos/{doc}/editar', [DocumentoController::class, 'editar'])->name('documento.editar');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
