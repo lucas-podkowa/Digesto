@@ -14,7 +14,7 @@ class CreateDocumentosTable extends Migration
     public function up()
     {
         Schema::create('documento', function (Blueprint $table) {
-            
+
             $table->increments('documento_id');
             $table->string('numero', 30)->nullable(false);
             $table->unsignedInteger('tipo_doc_id')->nullable(false);
@@ -25,7 +25,6 @@ class CreateDocumentosTable extends Migration
 
             $table->foreign('tipo_doc_id')->references('tipo_doc_id')->on('tipo_doc')->onDelete('restrict')->onUpdate('restrict');
             $table->index(['numero', 'tipo_doc_id']);
-
         });
     }
 

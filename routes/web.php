@@ -3,7 +3,7 @@
 use App\Http\Controllers\DigestoController;
 use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\HomeController;
-
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,8 +23,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
+Route::get('/home', [HomeController::class, 'home'])->name('home');
 
 
 //llamada al ingresar, tendra filtros y una tabla
@@ -40,5 +39,5 @@ Route::post('/documentos/guardar', [DocumentoController::class, 'savePdf'])->nam
 //Route::post('/documentos/{doc}/editar', [DocumentoController::class, 'editar'])->name('documento.editar');
 
 
-
-
+//llamada al ingresar, tendra filtros y una tabla
+Route::get('/usuarios', [UserController::class, 'listar'])->name('users.listar');
