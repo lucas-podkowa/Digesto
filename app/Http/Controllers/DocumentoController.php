@@ -9,7 +9,7 @@ class DocumentoController extends Controller
 {
     public function index()
     {
-
+        $filas = array();
         $filas = Documento::all();
 
         return view('digesto', compact('filas'));

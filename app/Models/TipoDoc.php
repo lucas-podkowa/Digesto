@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class TipoDoc extends Model
 {
     use HasFactory;
+    protected $table = 'tipo_doc';
+    protected $fillable = ['nombre', 'descripcion'];
 }

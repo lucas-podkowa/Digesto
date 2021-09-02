@@ -18,9 +18,10 @@ class CreateTipoDocsTable extends Migration
             $table->increments('tipo_doc_id');
             $table->string('nombre', 30)->nullable(false);
             $table->string('descripcion', 255)->nullable();
-            $table->string('subdirectorio', 255)->nullable(false);
-            $table->string('css', 255)->nullable();
-            $table->string('imagen', 255)->nullable();
+            $table->timestamps();
+            //$table->string('subdirectorio', 255)->nullable(false);
+            //$table->string('css', 255)->nullable();
+            //$table->string('imagen', 255)->nullable();
             
         });
     }
