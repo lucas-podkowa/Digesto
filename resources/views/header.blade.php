@@ -1,5 +1,5 @@
 <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand navbar-white navbar-light">
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown">
@@ -18,12 +18,40 @@
                             @csrf
                         </form>
                     </div>
+
                 </li>
+                {{-- <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ route('documentos.nuevo') }}">Nuevo</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ route('users.listar') }}">Usuarios</a>
+                    </li>
+                </ul> --}}
             </ul>
-            
-            <span class="navbar-text">
-                Digesto Consejo Directivo - FIO
-            </span>
+
+
+            {{-- <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ route('documentos.nuevo') }}">Nuevo</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ route('users.listar') }}">Usuarios</a>
+                </li>
+            </ul> --}}
+
+            <ul class="nav nav-pills">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ route('digesto.index') }}">Digesto</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ route('documentos.nuevo') }}">Nuevo</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ route('users.listar') }}">Usuarios</a>
+                    </li>
+                </ul>
         </div>
     </nav>
 

@@ -1,12 +1,8 @@
 @extends('layout')
 
 @section('content')
-    <h1>
-        Titulo
-        {{-- {{ $title }} --}}
-    </h1>
 
-    <table id="rtimetable" class="table table-bordered table-hover">
+    <table id="DocsTable" class="table table-bordered table-hover">
 
         <thead class="thead-dark">
             <th>Tipo de Documento</th>
@@ -14,6 +10,9 @@
             <th>Resúmen</th>
             <th>Fecha</th>
             <th>Archivo</th>
+            <th>Editar</th>
+            {{-- <th><button>nuevo</button></th> --}}
+
         </thead>
         <tbody>
             @forelse ($filas as $f)
@@ -38,19 +37,18 @@
                     </td>
 
                     <td class="text-center py-0 align-middle">
-                        {{-- <div class="btn-group btn-group-sm"> --}}
-                            <a href="#" class="btn btn-outline-dark"><i class="fas fa-file-pdf"></i></a>
-                            {{-- <a href="#" class="btn btn-outline-dark"><i class="fas fa-edit"></i></a> --}}
-                        {{-- </div> --}}
+                        <a href="{{ route('asistentes.show', $f->documento_id) }}" class="btn btn-outline-dark"><i
+                                class="fas fa-file-pdf"></i></a>
+
+                        {{-- <a target="_blank" href="{{ asset('files/nombreDeTuPdf.pdf') }}">PDF</a>
+                        Si quieres ver el pdf en la misma página lo puedes hacer con iframe: --}}
+
+                        {{-- <iframe width="400" height="400" src="{{ asset('files/nombreDeTuPdf.pdf') }}"
+                            frameborder="0"></iframe> --}}
                     </td>
                     <td class="text-right py-0 align-middle">
-                        {{-- <div class="btn-group btn-group-sm"> --}}
-                            <a href="#" class="btn btn-outline-dark btn-sm"><i class="fas fa-edit"></i></a>
-                        {{-- </div> --}}
+                        <a href="#" class="btn btn-outline-dark btn-sm"><i class="fas fa-edit"></i></a>
                     </td>
-                    {{-- <a class="btn btn-block btn-outline-primary btn-sm" href="{{ route('asistentes.show', $f['meetingID']) }}" role="button">
-                            <strong> {{ $f['cantParticipantes'] }}</strong> </a> --}}
-
                 </tr>
             @empty
                 <div class="alert alert-secondary" role="alert">
@@ -60,17 +58,15 @@
         </tbody>
     </table>
     <div>
-        <div class="alert alert-light" role="alert">
+
+
+        {{-- <div class="alert alert-light" role="alert">
             Sesiones activas:
-            {{-- <b>{{ $totales['reuniones'] }}</b> --}}
+            <b>{{ $totales['reuniones'] }}</b>
         </div>
         <div class="alert alert-light" role="alert">
             Total de participantes:
-            {{-- <b>{{ $totales['personas'] }}</b> --}}
-        </div>
-        <div class="alert alert-light" role="alert">
-            Microfonos con permiso de activación:
-            {{-- <b>{{ $totales['microfonos'] }}</b> --}}
-        </div>
+            <b>{{ $totales['personas'] }}</b>
+        </div> --}}
     </div>
 @endsection

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Digesto Facultad de Ingeniería</title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
     {{-- <!-- Font Awesome --> --}}
     <link rel="stylesheet" href="{{ asset('assets/lte3/plugins/fontawesome-free/css/all.min.css') }}">
@@ -37,7 +37,7 @@
 
 <body>
     @include('header')
-
+    {{-- @include('layouts.app') --}}
     @yield('content')
 
     <!-- jQuery -->
@@ -53,7 +53,7 @@
     <script src="{{ asset('assets/lte3/dist/js/adminlte.min.js') }}"></script>
     <!-- date-range-picker -->
     <script src="{{ asset('assets/lte3/plugins/daterangepicker/daterangepicker.js') }}"></script>
-    
+
     <!-- input-mask -->
     <script src="jquery.js"></script>
     <script src="assets/inputmask/dist/jquery.inputmask.js"></script>
@@ -85,7 +85,6 @@
 
             )
         })
-
     </script>
     <script>
         $(function() {
@@ -99,13 +98,13 @@
             });
         });
         $(function() {
-            $('#rtimetable').DataTable({
-                "paging": false,
+            $('#DocsTable').DataTable({
+                "paging": true,
                 "lengthChange": false,
                 "searching": true,
                 "ordering": true,
                 "info": false,
-                "autoWidth": false,
+                "autoWidth": true,
             });
         });
         $(function() {
@@ -118,7 +117,6 @@
                 "autoWidth": false,
             });
         });
-
     </script>
 
 </body>

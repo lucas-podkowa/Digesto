@@ -26,14 +26,12 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'home'])->name('home');
 
 
-//llamada al ingresar, tendra filtros y una tabla
+
 Route::get('/documentos', [DocumentoController::class, 'index'])->name('digesto.index');
 
-//llamada al presionar "Nuevo Documento", mostrara un formulario vacio
 Route::get('/documentos/nuevo', [DocumentoController::class, 'nuevo'])->name('documentos.nuevo');
 
-//llamada al presionar "Nuevo Documento", mostrara un formulario vacio
-Route::post('/documentos/guardar', [DocumentoController::class, 'savePdf'])->name('documentos.savePdf');
+Route::post('/documentos/guardar', [DocumentoController::class, 'guardar'])->name('documentos.guardar');
 
 //funcion para editar un documento almacenado en la BD
 //Route::post('/documentos/{doc}/editar', [DocumentoController::class, 'editar'])->name('documento.editar');

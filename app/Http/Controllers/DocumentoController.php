@@ -11,7 +11,6 @@ class DocumentoController extends Controller
     {
         $filas = array();
         $filas = Documento::all();
-
         return view('digesto', compact('filas'));
     }
 
@@ -20,28 +19,33 @@ class DocumentoController extends Controller
         return view('documento');
     }
 
-    public function savePdf(Request $request)
+    public function guardar(Request $request)
     {
+
+
+
         if ($request->hasFile("urlpdf")) {
+
             $file = $request->file("urlpdf");
 
-            $nombre = "pdf_" . time() . "." . $file->guessExtension();
+            $nombre = "tipo_" . $request->tipo_doc . $request->numero . "." . $file->guessExtension();
 
-            $ruta = public_path("pdf/" . $nombre);
+            $ruta = public_path("files/" . $nombre);
 
             if ($file->guessExtension() == "pdf") {
-                copy($file, $ruta);
+                //copy($file, $ruta);
             } else {
                 dd("NO ES UN PDF");
             }
+
+            $doc = new Documento();
+            $doc->numero = $request->numero;
+            $doc->tipo_doc_id = $request->tipo_doc_id;
+            $doc->resumen = $request->resumen;
+            $doc->fecha = $request->fecha;
+            $doc->archivo = $ruta;
+
+            dd($doc);
         }
-    }
-
-
-    public function listar()
-    {
-        $documentos = Documento::all();
-
-        return view('digesto', compact('documentos'));
     }
 }
