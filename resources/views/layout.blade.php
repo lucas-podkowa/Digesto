@@ -88,13 +88,13 @@
     </script>
     <script>
         $(function() {
-            $('#example').DataTable({
+            $('#userList').DataTable({
                 "paging": true,
-                "lengthChange": true,
+                "lengthChange": false,
                 "searching": true,
                 "ordering": true,
-                "info": true,
-                "autoWidth": false,
+                "info": false,
+                "autoWidth": true,
             });
         });
         $(function() {

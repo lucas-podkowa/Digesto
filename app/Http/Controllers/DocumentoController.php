@@ -16,7 +16,7 @@ class DocumentoController extends Controller
 
     public function nuevo()
     {
-        return view('documento');
+        return view('docEdit');
     }
 
     public function guardar(Request $request)

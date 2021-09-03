@@ -37,5 +37,9 @@ Route::post('/documentos/guardar', [DocumentoController::class, 'guardar'])->nam
 //Route::post('/documentos/{doc}/editar', [DocumentoController::class, 'editar'])->name('documento.editar');
 
 
-//llamada al ingresar, tendra filtros y una tabla
-Route::get('/usuarios', [UserController::class, 'listar'])->name('users.listar');
+// -- USUARIOS --
+Route::get('/usuarios', [UserController::class, 'listar'])->name('usuarios.listar');
+
+Route::get('/usuarios/{user}/editar', [UserController::class, 'editar'])->name('usuarios.editar');
+
+Route::put('/usuarios/{user}', [UserController::class, 'actualizar'])->name('usuarios.actualizar');

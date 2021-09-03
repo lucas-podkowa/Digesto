@@ -37,7 +37,7 @@
                     </td>
 
                     <td class="text-center py-0 align-middle">
-                        <a href="{{ route('asistentes.show', $f->documento_id) }}" class="btn btn-outline-dark"><i
+                        <a href="{{ route('home', $f->documento_id) }}" class="btn btn-outline-dark"><i
                                 class="fas fa-file-pdf"></i></a>
 
                         {{-- <a target="_blank" href="{{ asset('files/nombreDeTuPdf.pdf') }}">PDF</a>

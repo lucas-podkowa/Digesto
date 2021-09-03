@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -12,14 +13,26 @@ class UserController extends Controller
     {
         $usuarios = User::all();
 
-        return view('usuarios', compact('usuarios'));
+        return view('usuarioList', compact('usuarios'));
     }
 
     //recupera un usuario y lo envia a una vista con un formulario de edicion
-    public function editar()
+    public function editar(User $user)
     {
-        $usuario = User::all();
+        //return $user;
 
-        return view('usuario', compact('usuario'));
+        $roles = Role::all();
+        return view('usuarioEdit', compact('user', 'roles'));
+    }
+
+    public function actualizar(Request $request, User $user)
+    {
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        $user->save();
+        return redirect()->route('usuarios.listar');
+
+        //return view('usuarioEdit', compact('user', 'roles'));
     }
 }

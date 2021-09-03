@@ -1,5 +1,5 @@
 <header>
-    <nav class="navbar navbar-expand navbar-white navbar-light">
+    <nav class="navbar navbar-expand-md navbar-dark bd-navbar" style="background-color: rgb(111, 154, 182);">
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown">
@@ -43,13 +43,16 @@
             <ul class="nav nav-pills">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="{{ route('digesto.index') }}">Digesto</a>
+                        <a class="nav-link" href="{{ route('digesto.index') }}"><i
+                                class="fas fa-folder-open"></i> Digesto</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="{{ route('documentos.nuevo') }}">Nuevo</a>
+                        <a class="nav-link" href="{{ route('documentos.nuevo') }}"><i
+                                class="fas fa-plus"></i> Nuevo</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="{{ route('users.listar') }}">Usuarios</a>
+                        <a class="nav-link" href="{{ route('usuarios.listar') }}"><i
+                                class="fas fa-users-cog"></i> Usuarios</a>
                     </li>
                 </ul>
         </div>
