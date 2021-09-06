@@ -43,16 +43,24 @@
             <ul class="nav nav-pills">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="{{ route('digesto.index') }}"><i
-                                class="fas fa-folder-open"></i> Digesto</a>
+                        @can('digesto.index')
+                            <a class="nav-link" href="{{ route('digesto.index') }}"><i
+                                    class="fas fa-folder-open"></i> Digesto</a>
+                        @endcan
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="{{ route('documentos.nuevo') }}"><i
-                                class="fas fa-plus"></i> Nuevo</a>
+                        @can('documentos.nuevo')
+                            <a class="nav-link" href="{{ route('documentos.nuevo') }}"><i
+                                    class="fas fa-plus"></i> Nuevo</a>
+                        @endcan
+
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="{{ route('usuarios.listar') }}"><i
-                                class="fas fa-users-cog"></i> Usuarios</a>
+                        @can('usuarios.listar')
+                            <a class="nav-link" href="{{ route('usuarios.listar') }}"><i
+                                    class="fas fa-users-cog"></i> Usuarios</a>
+                        @endcan
+
                     </li>
                 </ul>
         </div>

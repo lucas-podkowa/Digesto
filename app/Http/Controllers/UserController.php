@@ -8,7 +8,7 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-    //recupera todos los usuarios y los envia a la vista donde se muestra en forma de listado
+
     public function listar()
     {
         $usuarios = User::all();
@@ -16,23 +16,28 @@ class UserController extends Controller
         return view('usuarioList', compact('usuarios'));
     }
 
-    //recupera un usuario y lo envia a una vista con un formulario de edicion
+
     public function editar(User $user)
     {
-        //return $user;
+        $suRol = $user->getRoleNames(); // Returns a collection
+
+        //dd($suRol->first());
 
         $roles = Role::all();
-        return view('usuarioEdit', compact('user', 'roles'));
+        return view('usuarioEdit', compact('user', 'roles', 'suRol'));
     }
 
     public function actualizar(Request $request, User $user)
     {
+
+        $user->roles()->sync($request->rol);
         $user->name = $request->name;
         $user->email = $request->email;
+
 
         $user->save();
         return redirect()->route('usuarios.listar');
 
-        //return view('usuarioEdit', compact('user', 'roles'));
+        // // // // // // // //return view('usuarioEdit', compact('user', 'roles'));
     }
 }

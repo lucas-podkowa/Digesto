@@ -2,10 +2,8 @@
 
 @section('content')
 
-    <form action="{{ route('documentos.actualizar', $documento) }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('documentos.guardar') }}" method="post" enctype="multipart/form-data">
         @csrf
-        @method('put')
-
         <div class="card-body">
             <div class="row">
                 <div class="col-sm-4">
@@ -23,15 +21,14 @@
 
                 <div class="col-sm-4">
                     <label for="inputNumero">Número</label>
-                    <input type="text" class="form-control" name=numero value={{ $documento->numero }} id="inputNumero"
-                        placeholder="000-0000" data-inputmask="'mask': '999-999-9999 '" data-mask>
+                    <input type="text" class="form-control" name=numero id="inputNumero" placeholder="000-0000"
+                        data-inputmask="'mask': '999-999-9999 '" data-mask>
                 </div>
             </div>
 
             <div class="col-sm-8">
                 <label>Resúmen</label>
-                <textarea class="form-control" name=resumen rows="3"
-                    placeholder="Redactar ...">{{ $documento->resumen }}</textarea>
+                <textarea class="form-control" name=resumen rows="3" placeholder="Redactar ..."></textarea>
             </div>
 
             <div class="col-sm-8">

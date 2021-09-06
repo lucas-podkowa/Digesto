@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\DigestoController;
 use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
@@ -23,23 +22,41 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'home'])->name('home');
+Route::get('/home', [HomeController::class, 'home'])
+    ->name('home');
+
+Route::get('/documentos', [DocumentoController::class, 'index'])
+    ->name('digesto.index');
 
 
+// -- DOCUMENTOS --
+Route::get('/documentos/nuevo', [DocumentoController::class, 'nuevo'])
+    ->middleware('can:documentos.nuevo')
+    ->name('documentos.nuevo');
 
-Route::get('/documentos', [DocumentoController::class, 'index'])->name('digesto.index');
+Route::post('/documentos/guardar', [DocumentoController::class, 'guardar'])
+    ->middleware('can:documentos.guardar')
+    ->name('documentos.guardar');
 
-Route::get('/documentos/nuevo', [DocumentoController::class, 'nuevo'])->name('documentos.nuevo');
+Route::get('/documentos/{documento}/editar', [DocumentoController::class, 'editar'])
+    ->middleware('can:documentos.editar')
+    ->name('documentos.editar');
 
-Route::post('/documentos/guardar', [DocumentoController::class, 'guardar'])->name('documentos.guardar');
+Route::put('/documentos/{documento}', [DocumentoController::class, 'actualizar'])
+    ->name('documentos.actualizar');
 
-//funcion para editar un documento almacenado en la BD
-//Route::post('/documentos/{doc}/editar', [DocumentoController::class, 'editar'])->name('documento.editar');
+
 
 
 // -- USUARIOS --
-Route::get('/usuarios', [UserController::class, 'listar'])->name('usuarios.listar');
+Route::get('/usuarios', [UserController::class, 'listar'])
+    ->middleware('can:usuarios.listar')
+    ->name('usuarios.listar');
 
-Route::get('/usuarios/{user}/editar', [UserController::class, 'editar'])->name('usuarios.editar');
+Route::get('/usuarios/{user}/editar', [UserController::class, 'editar'])
+    ->middleware('can:usuarios.editar')
+    ->name('usuarios.editar');
 
-Route::put('/usuarios/{user}', [UserController::class, 'actualizar'])->name('usuarios.actualizar');
+Route::put('/usuarios/{user}', [UserController::class, 'actualizar'])
+    ->middleware('can:usuarios.actualizar')
+    ->name('usuarios.actualizar');

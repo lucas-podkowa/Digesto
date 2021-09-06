@@ -6,7 +6,6 @@
             <table id="userList" class="table table-striped">
                 <thead>
                     <tr>
-
                         <th>Nombre</th>
                         <th>Email</th>
                         <th>Rol</th>
@@ -19,8 +18,12 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->rol }}</td>
-                            <td width="10px"><a class="btn btn-primay" href="{{ route('usuarios.editar', $user) }}"><i
-                                        class="fas fa-edit"></i> Editar</a></td>
+                            <td width="10px">
+                                @can('usuarios.editar')
+                                    <a class="btn btn-primay" href="{{ route('usuarios.editar', $user) }}"><i
+                                            class="fas fa-edit"></i> Editar</a>
+                                @endcan
+                            </td>
                         </tr>
                     @empty
                         <div class="alert alert-info" role="alert">
@@ -29,10 +32,6 @@
                     @endforelse
                 </tbody>
             </table>
-        </div>
-
-        <div class="card-footer">
-
         </div>
     </div>
 

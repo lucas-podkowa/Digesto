@@ -2,8 +2,10 @@
 
 @section('content')
 
-    <h5>Edición del Usuario: {{ $user->name }}</h5>
-    <form action="{{ route('usuarios.actualizar', $user) }}" method="post">
+    <h5>Usuario: <b>{{ $user->name }}</h5>
+    <h5>Rol Activo: <b>{{ $suRol->first() }}</b></h5>
+    <form action="{{ route('usuarios.actualizar', $user) }}" method="post"
+        class="border border-secondary rounded p-3 mb-2 bg-secondary text-white">
         @csrf
         @method('put')
 
@@ -22,9 +24,10 @@
                 <div class="form-group">
                     <label>Rol</label>
                     <select class="form-control" name=rol>
-                        <option>Administrador</option>
-                        <option>Ayudante</option>
-                        <option>Visor</option>
+                        <option value="" selected disabled>Seleccionar...</option>
+                        @foreach ($roles as $rol)
+                            <option value="{{ $rol->id }}">{{ $rol->name }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -32,7 +35,7 @@
         </div>
 
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Actualizar Datos</button>
+            <button type="submit" class="btn btn-default"><i class="fas fa-save"></i> Actualizar</button>
             <button class="btn btn-default float-right" href="{{ route('usuarios.listar') }}">
                 <i class="fas fa-undo"></i> Volver</button>
 

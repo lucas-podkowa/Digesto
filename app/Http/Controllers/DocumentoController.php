@@ -4,25 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Documento;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class DocumentoController extends Controller
 {
     public function index()
     {
-        $filas = array();
-        $filas = Documento::all();
-        return view('digesto', compact('filas'));
+
+        $documentos = Documento::orderBy('documento_id', 'desc');
+        //$documentos = Documento::all();
+        return view('digesto', compact('documentos'));
     }
 
     public function nuevo()
     {
-        return view('docEdit');
+        return view('docNew');
     }
 
     public function guardar(Request $request)
     {
-
-
 
         if ($request->hasFile("urlpdf")) {
 
@@ -44,8 +44,20 @@ class DocumentoController extends Controller
             $doc->resumen = $request->resumen;
             $doc->fecha = $request->fecha;
             $doc->archivo = $ruta;
-
-            dd($doc);
         }
+        return redirect()->route('digesto.index');
+    }
+
+    public function editar(Documento $documento)
+    {
+        return $documento;
+        //return view('docEdit', compact('documento'));
+    }
+
+    public function actualizar(Request $request, Documento $documento)
+    {
+        return $documento;
+        //$roles = Role::all();
+        //return view('docEdit', compact('documento'));
     }
 }

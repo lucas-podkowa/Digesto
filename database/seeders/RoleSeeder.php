@@ -20,8 +20,17 @@ class RoleSeeder extends Seeder
         $role3 = Role::create(['name' => 'Visor']);
 
         Permission::create(['name' => 'home'])->syncRoles([$role1, $role2, $role3]);
+        Permission::create(['name' => 'digesto.index'])->syncRoles([$role1, $role2, $role3]);
+
         Permission::create(['name' => 'documentos.nuevo'])->syncRoles([$role1, $role2]);
-        Permission::create(['name' => 'documentos.savePdf'])->syncRoles([$role1, $role2]);
-        Permission::create(['name' => 'digesto.index'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'documentos.guardar'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'documentos.editar'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'documentos.actualizar'])->syncRoles([$role1, $role2]);
+
+        Permission::create(['name' => 'usuarios.listar'])->syncRoles([$role1]);
+        Permission::create(['name' => 'usuarios.editar'])->syncRoles([$role1]);
+        Permission::create(['name' => 'usuarios.actualizar'])->syncRoles([$role1]);
+
+        //Permission::create(['name' => 'digesto.index'])->syncRoles([$role1, $role2]);
     }
 }
