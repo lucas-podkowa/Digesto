@@ -27,7 +27,7 @@
                         </tr>
                     @empty
                         <div class="alert alert-info" role="alert">
-                            No existen asistentes activos en este momento
+                            No existen Usuarios activos
                         </div>
                     @endforelse
                 </tbody>

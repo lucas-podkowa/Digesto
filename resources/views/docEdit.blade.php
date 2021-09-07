@@ -23,8 +23,15 @@
 
                 <div class="col-sm-4">
                     <label for="inputNumero">Número</label>
-                    <input type="text" class="form-control" name=numero value={{ $documento->numero }} id="inputNumero"
-                        placeholder="000-0000" data-inputmask="'mask': '999-999-9999 '" data-mask>
+
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-barcode"></i></span>
+                        </div>
+                        <input type="text" class="form-control" name="numero" id="numero"
+                            data-inputmask="'mask': ['999-9999']" data-mask>
+                    </div>
+
                 </div>
             </div>
 
@@ -34,24 +41,27 @@
                     placeholder="Redactar ...">{{ $documento->resumen }}</textarea>
             </div>
 
+
             <div class="col-sm-8">
-                <label>Fecha:</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                <div class="form-group">
+                    <label>Fecha:</label>
+
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                        </div>
+                        <input type="text" class="form-control" id="datemask" data-inputmask-alias="datetime"
+                            data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                     </div>
-                    <input type="text" name="fecha" class="form-control" data-inputmask-alias="datetime"
-                        data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                 </div>
             </div>
-
 
             <div class="col-sm-8">
                 <label for="inputPdf">Archivo correspondiente</label>
                 <div class="input-group">
                     <div class="custom-file">
-                        <input type="file" name="urlpdf" class="custom-file-input" id="inputPdf">
-                        <label class="custom-file-label" for="inputPdf">seleccione un archivo</label>
+                        <input type="file" class="custom-file-input" name="urlpdf" id="urlpdf">
+                        <label class="custom-file-label" for="urlpdf">seleccione un archivo</label>
                     </div>
 
                 </div>
@@ -60,6 +70,8 @@
 
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">Guardar</button>
+            <button class="btn btn-default float-right" href="{{ route('digesto.index') }}">
+                <i class="fas fa-undo"></i> Cancelar</button>
         </div>
     </form>
 

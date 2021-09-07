@@ -11,15 +11,17 @@
     <link rel="stylesheet" href="{{ asset('assets/lte3/plugins/fontawesome-free/css/all.min.css') }}">
     {{-- <!-- Ionicons --> --}}
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+    {{-- <!-- daterange picker --> --}}
+    <link rel="stylesheet" href="{{ asset('assets/lte3/plugins/daterangepicker/daterangepicker.css') }}">
+
+
     {{-- <!-- DataTables --> --}}
     <link rel="stylesheet" href="{{ asset('assets/lte3/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
     {{-- <!-- Theme style --> --}}
     <link rel="stylesheet" href="{{ asset('assets/lte3/dist/css/adminlte.min.css') }}">
     {{-- <!-- Google Font: Source Sans Pro --> --}}
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
-    {{-- <!-- daterange picker --> --}}
-    <link rel="stylesheet" href="{{ asset('assets/lte3/plugins/daterangepicker/daterangepicker.css') }}">
     {{-- <!-- Tempusdominus Bootstrap 4 --> --}}
     <link rel="stylesheet"
         href="{{ asset('assets/lte3/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
@@ -37,53 +39,72 @@
 
 <body>
     @include('header')
-    {{-- @include('layouts.app') --}}
+
     @yield('content')
 
+
     <!-- jQuery -->
+    <script src="{{ asset('assets/lte3/plugins/jquery/jquery.js') }}"></script>
     <script src="{{ asset('assets/lte3/plugins/jquery/jquery.min.js') }}"></script>
+
+
     <!-- Bootstrap 4 -->
     <script src="{{ asset('assets/lte3/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+    <!-- InputMask -->
+    <script src="{{ asset('assets/lte3/plugins/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('assets/lte3/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/lte3/plugins/inputmask/jquery.inputmask.js') }}"></script> --}}
+
     <!-- DataTables -->
     <script src="{{ asset('assets/lte3/plugins/datatables/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('assets/lte3/plugins/datatables-bs4/js/dataTables.bootstrap4.js') }}"></script>
-    <!-- AdminLTE App -->
-    <!-- InputMask -->
-    <script src="{{ asset('assets/lte3/plugins/moment/moment.min.js') }}"></script>
-    <script src="{{ asset('assets/lte3/dist/js/adminlte.min.js') }}"></script>
+
     <!-- date-range-picker -->
     <script src="{{ asset('assets/lte3/plugins/daterangepicker/daterangepicker.js') }}"></script>
 
-    <!-- input-mask -->
-    <script src="jquery.js"></script>
-    <script src="assets/inputmask/dist/jquery.inputmask.js"></script>
+    <!-- bs-custom-file-input -->
+    <script src="{{ asset('assets/lte3/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+
+    <script src="{{ asset('assets/lte3/dist/js/adminlte.min.js') }}"></script>
 
 
 
     <script>
         $(function() {
+            
+            bsCustomFileInput.init()
+
+            //Datemask dd/mm/yyyy
+            $('#datemask').inputmask('dd/mm/yyyy', {
+                'placeholder': 'dd/mm/aaaa'
+            })
+            //Datemask dd/mm/yyyy
+            $('#numero').inputmask('999-9999', {
+                'placeholder': '000-0000'
+            })
+
             //Date range as a button
             $('#daterange-btn').daterangepicker({
                     ranges: {
-                        'Hoy': [moment(), moment()],
-                        'Ayer': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                        'Ultimos 7 días': [moment().subtract(6, 'days'), moment()],
-                        'Ultimos 30 días': [moment().subtract(29, 'days'), moment()],
-                        'Este Mes': [moment().startOf('month'), moment().endOf('month')],
-                        'El mes pasado': [moment().subtract(1, 'month').startOf('month'), moment().subtract(
-                            1,
+                        'Today': [moment(), moment()],
+                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                        'This Month': [moment().startOf('month'), moment().endOf('month')],
+                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1,
                             'month').endOf('month')]
                     },
                     startDate: moment().subtract(29, 'days'),
                     endDate: moment()
-
                 },
                 function(start, end) {
                     $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format(
                         'MMMM D, YYYY'))
                 }
+            );
 
-            )
+
         })
     </script>
     <script>
@@ -114,7 +135,7 @@
                 "searching": true,
                 "ordering": true,
                 "info": true,
-                "autoWidth": false,
+                "autoWidth": true,
             });
         });
     </script>

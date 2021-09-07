@@ -11,8 +11,8 @@ class DocumentoController extends Controller
     public function index()
     {
 
-        $documentos = Documento::orderBy('documento_id', 'desc');
-        //$documentos = Documento::all();
+        //$documentos = Documento::orderBy('documento_id', 'desc');
+        $documentos = Documento::all();
         return view('digesto', compact('documentos'));
     }
 
@@ -50,8 +50,7 @@ class DocumentoController extends Controller
 
     public function editar(Documento $documento)
     {
-        return $documento;
-        //return view('docEdit', compact('documento'));
+        return view('docEdit', compact('documento'));
     }
 
     public function actualizar(Request $request, Documento $documento)
