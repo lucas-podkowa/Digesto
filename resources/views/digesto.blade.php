@@ -29,8 +29,12 @@
                             </td>
 
                             <td class="text-center py-0 align-middle">
-                                <a href="{{ route('home', $documento->documento_id) }}" class="btn btn-outline-dark"><i
-                                        class="fas fa-file-pdf"></i></a>
+                                {{-- <a href="{{ route('home', $documento->documento_id) }}" class="btn btn-outline-dark"><i
+                                        class="fas fa-file-pdf"></i></a> --}}
+
+                                <button type="button" class="btn"
+                                    onclick="showFile('{{ $documento->archivo }}')"><i
+                                        class="fas fa-file-pdf"></i></button>
 
                             </td>
                             <td width="10px">

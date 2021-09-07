@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Documento;
+use App\Models\TipoDoc;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
@@ -18,43 +19,73 @@ class DocumentoController extends Controller
 
     public function nuevo()
     {
-        return view('docNew');
+        $tipos = TipoDoc::all();
+        return view('docNew', compact('tipos'));
     }
 
     public function guardar(Request $request)
     {
 
-        if ($request->hasFile("urlpdf")) {
+        // $request->validate([
+        //     'numero' => "required",
+        //     'resumen' => "required"
 
-            $file = $request->file("urlpdf");
+        // ]);
 
-            $nombre = "tipo_" . $request->tipo_doc . $request->numero . "." . $file->guessExtension();
 
-            $ruta = public_path("files/" . $nombre);
 
-            if ($file->guessExtension() == "pdf") {
-                //copy($file, $ruta);
-            } else {
-                dd("NO ES UN PDF");
-            }
 
-            $doc = new Documento();
-            $doc->numero = $request->numero;
-            $doc->tipo_doc_id = $request->tipo_doc_id;
-            $doc->resumen = $request->resumen;
-            $doc->fecha = $request->fecha;
-            $doc->archivo = $ruta;
+        // if ($request->hasFile("urlpdf")) {
+
+        //     $file = $request->file("urlpdf");
+        $tipo = TipoDoc::where('tipo_doc_id', $request->tipo_doc)->first();
+        //     $nombre = $tipo->nombre . "_" . $request->numero . "." . $file->guessExtension();
+
+
+        //     $fecha = date('Y-m-d', strtotime($request->fecha));
+        $year = date("Y", strtotime($request->fecha));
+        if (file_exists(public_path("files/" . $year . "/" . $tipo->nombre))) {
+            echo "El fichero SI existe";
+        } else {
+            mkdir(public_path("files/" . $year . "/" . $tipo->nombre));
         }
-        return redirect()->route('digesto.index');
+
+
+        //     $ruta = public_path("files/" . $nombre);
+        //     if ($file->guessExtension() == "pdf") {
+        //         copy($file, $ruta);
+        //     } else {
+        //         dd("NO ES UN PDF");
+        //     }
+
+        //     $doc = new Documento();
+        //     $doc->numero = $request->numero;
+        //     $doc->tipo_doc_id = $request->tipo_doc;
+        //     $doc->resumen = $request->resumen;
+
+        //     $fecha = date('Y-m-d', strtotime($request->fecha));
+        //     $doc->fecha = $fecha;
+        //     $doc->archivo = $ruta;
+        // }
+        // //$doc->save();
+        // return redirect()->route('digesto.index');
     }
 
     public function editar(Documento $documento)
     {
-        return view('docEdit', compact('documento'));
+
+        $tipos = TipoDoc::all();
+        return view('docEdit', compact('documento', 'tipos'));
     }
 
     public function actualizar(Request $request, Documento $documento)
     {
+        $request->validate([
+            'numero' => "required",
+            'resumen' => "required",
+            'archivo' => "required"
+        ]);
+
         return $documento;
         //$roles = Role::all();
         //return view('docEdit', compact('documento'));

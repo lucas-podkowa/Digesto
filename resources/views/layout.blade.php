@@ -72,7 +72,7 @@
 
     <script>
         $(function() {
-            
+
             bsCustomFileInput.init()
 
             //Datemask dd/mm/yyyy
@@ -138,6 +138,23 @@
                 "autoWidth": true,
             });
         });
+    </script>
+
+    <script>
+        function showFile(id) {
+            $.ajax({
+                url: id,
+                type: "get",
+                dataType: "html",
+                contentType: false,
+                processData: false
+            }).done(function(res) {
+                url = JSON.parse(res).response.url
+                window.open('storage/' + url, '_blank');
+            }).fail(function(res) {
+                console.log(res)
+            });
+        }
     </script>
 
 </body>

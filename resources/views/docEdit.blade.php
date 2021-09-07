@@ -12,11 +12,9 @@
                     <div class="form-group">
                         <label>Tipo de Documento</label>
                         <select class="form-control" name=tipo_doc>
-                            <option>Conclusion</option>
-                            <option>Convenio</option>
-                            <option>Convocatoria</option>
-                            <option>Ordenanza</option>
-                            <option>Resolucion</option>
+                            @foreach ($tipos as $tipo)
+                                <option value="{{ $tipo->tipo_doc_id }}">{{ $tipo->nombre }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -28,9 +26,13 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="numero" id="numero"
+                        <input type="text" class="form-control" name="numero"
+                            value="{{ old('numero', $documento->numero) }}" id="numero"
                             data-inputmask="'mask': ['999-9999']" data-mask>
                     </div>
+                    @error('numero')
+                        <small>*{{ $message }}</small>
+                    @enderror
 
                 </div>
             </div>
@@ -38,7 +40,10 @@
             <div class="col-sm-8">
                 <label>Resúmen</label>
                 <textarea class="form-control" name=resumen rows="3"
-                    placeholder="Redactar ...">{{ $documento->resumen }}</textarea>
+                    placeholder="Redactar ...">{{ old('resumen', $documento->resumen) }}</textarea>
+                @error('resumen')
+                    <small>*{{ $message }}</small>
+                @enderror
             </div>
 
 
@@ -50,9 +55,12 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                         </div>
-                        <input type="text" class="form-control" id="datemask" data-inputmask-alias="datetime"
-                            data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                        <input type="text" name="fecha" value="{{ old('fecha', $documento->fecha) }}" class="form-control"
+                            id="datemask" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                     </div>
+                    @error('fecha')
+                        <small>*{{ $message }}</small>
+                    @enderror
                 </div>
             </div>
 
