@@ -4,6 +4,7 @@
 
     <h5>Usuario: <b>{{ $user->name }}</h5>
     <h5>Rol Activo: <b>{{ $suRol->first() }}</b></h5>
+    {{-- <h5>Rol ID: <b>{{ $user->roles }}</b></h5> --}}
     <form action="{{ route('usuarios.actualizar', $user) }}" method="post"
         class="border border-secondary rounded p-3 mb-2 bg-secondary text-white">
         @csrf
@@ -26,7 +27,8 @@
                     <select class="form-control" name=rol>
                         <option value="" selected disabled>Seleccionar...</option>
                         @foreach ($roles as $rol)
-                            <option value="{{ $rol->id }}">{{ $rol->name }}</option>
+                            <option value="{{ $rol->id }}" selected="{{ $user->roles[0]->id }}">{{ $rol->name }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
@@ -36,9 +38,8 @@
 
         <div class="card-footer">
             <button type="submit" class="btn btn-default"><i class="fas fa-save"></i> Actualizar</button>
-            <button class="btn btn-default float-right" href="{{ route('usuarios.listar') }}">
-                <i class="fas fa-undo"></i> Volver</button>
-
+            <a class="btn btn-danger float-right" href="{{ route('usuarios.listar') }}">
+                <i class="fas fa-undo"></i> Cancelar</a>
         </div>
     </form>
 

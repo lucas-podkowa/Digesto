@@ -47,7 +47,6 @@ Route::put('/documentos/{documento}', [DocumentoController::class, 'actualizar']
 
 
 
-
 // -- USUARIOS --
 Route::get('/usuarios', [UserController::class, 'listar'])
     ->middleware('can:usuarios.listar')

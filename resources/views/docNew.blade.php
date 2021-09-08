@@ -66,18 +66,21 @@
                 <label for="inputPdf">Archivo correspondiente</label>
                 <div class="input-group">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" name="urlpdf" id="urlpdf" lang="es">
+                        <input type="file" class="custom-file-input" name="archivo" id="archivo" lang="es">
                         <label class="custom-file-label" for="inputPdf">seleccione un archivo</label>
                     </div>
 
                 </div>
+                @error('archivo')
+                    <small>*{{ $message }}</small>
+                @enderror
             </div>
         </div>
 
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">Guardar</button>
-            <button class="btn btn-default float-right" href="{{ route('digesto.index') }}">
-                <i class="fas fa-undo"></i> Cancelar</button>
+            <a class="btn btn-danger float-right" href="{{ route('digesto.index') }}">
+                <i class="fas fa-undo"></i> Cancelar</a>
         </div>
     </form>
 

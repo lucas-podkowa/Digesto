@@ -17,7 +17,7 @@
                         <tr>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            <td>{{ $user->rol }}</td>
+                            <td>{{ $user->getRoleNames()->first() }}</td>
                             <td width="10px">
                                 @can('usuarios.editar')
                                     <a class="btn btn-primay" href="{{ route('usuarios.editar', $user) }}"><i

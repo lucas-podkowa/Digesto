@@ -55,8 +55,9 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                         </div>
-                        <input type="text" name="fecha" value="{{ old('fecha', $documento->fecha) }}" class="form-control"
-                            id="datemask" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                        <input type="text" name="fecha" value="{{ old('fecha', $documento->fecha) }}"
+                            class="form-control" id="datemask" data-inputmask-alias="datetime"
+                            data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                     </div>
                     @error('fecha')
                         <small>*{{ $message }}</small>
@@ -68,18 +69,22 @@
                 <label for="inputPdf">Archivo correspondiente</label>
                 <div class="input-group">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" name="urlpdf" id="urlpdf">
-                        <label class="custom-file-label" for="urlpdf">seleccione un archivo</label>
+                        <input type="file" class="custom-file-input" name="archivo" id="urlpdf">
+                        <label class="custom-file-label" for="archivo">seleccione un archivo</label>
                     </div>
 
                 </div>
+                @error('archivo')
+                    <small>*{{ $message }}</small>
+                @enderror
             </div>
         </div>
 
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">Guardar</button>
-            <button class="btn btn-default float-right" href="{{ route('digesto.index') }}">
-                <i class="fas fa-undo"></i> Cancelar</button>
+
+            <a class="btn btn-danger float-right" href="{{ route('digesto.index') }}">
+                <i class="fas fa-undo"></i> Cancelar</a>
         </div>
     </form>
 

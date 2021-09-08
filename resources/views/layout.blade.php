@@ -84,26 +84,6 @@
                 'placeholder': '000-0000'
             })
 
-            //Date range as a button
-            $('#daterange-btn').daterangepicker({
-                    ranges: {
-                        'Today': [moment(), moment()],
-                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                        'This Month': [moment().startOf('month'), moment().endOf('month')],
-                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1,
-                            'month').endOf('month')]
-                    },
-                    startDate: moment().subtract(29, 'days'),
-                    endDate: moment()
-                },
-                function(start, end) {
-                    $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format(
-                        'MMMM D, YYYY'))
-                }
-            );
-
 
         })
     </script>
@@ -120,43 +100,15 @@
         });
         $(function() {
             $('#DocsTable').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": true,
-                "ordering": true,
-                "info": false,
-                "autoWidth": true,
-            });
-        });
-        $(function() {
-            $('#asisttable').DataTable({
-                "paging": true,
+                "paging": false,
                 "lengthChange": true,
                 "searching": true,
                 "ordering": true,
-                "info": true,
-                "autoWidth": true,
+                "info": false,
+                "autoWidth": false,
             });
         });
     </script>
-
-    <script>
-        function showFile(id) {
-            $.ajax({
-                url: id,
-                type: "get",
-                dataType: "html",
-                contentType: false,
-                processData: false
-            }).done(function(res) {
-                url = JSON.parse(res).response.url
-                window.open('storage/' + url, '_blank');
-            }).fail(function(res) {
-                console.log(res)
-            });
-        }
-    </script>
-
 </body>
 
 </html>

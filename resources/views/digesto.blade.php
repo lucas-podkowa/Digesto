@@ -5,7 +5,7 @@
         <div class="card-body">
             <table id="DocsTable" class="table table-striped">
                 <thead class="thead-dark">
-                    <th>Tipo de Documento</th>
+                    <th>Tipo</th>
                     <th>Número</th>
                     <th>Resúmen</th>
                     <th>Fecha</th>
@@ -16,7 +16,7 @@
                     @forelse ($documentos as $documento)
                         <tr>
                             <td>
-                                {{ $documento['tipo_doc_id'] }}
+                                {{ $documento->tipo->nombre }}
                             </td>
                             <td>
                                 {{ $documento['numero'] }}
@@ -29,18 +29,18 @@
                             </td>
 
                             <td class="text-center py-0 align-middle">
-                                {{-- <a href="{{ route('home', $documento->documento_id) }}" class="btn btn-outline-dark"><i
-                                        class="fas fa-file-pdf"></i></a> --}}
+                                <a href="{{ $documento->archivo }}" target="_blank" class="btn btn-outline-dark"><i
+                                        class="fas fa-file-pdf"></i></a>
 
-                                <button type="button" class="btn"
+                                {{-- <button type="button" class="btn"
                                     onclick="showFile('{{ $documento->archivo }}')"><i
-                                        class="fas fa-file-pdf"></i></button>
+                                        class="fas fa-file-pdf"></i></button> --}}
 
                             </td>
                             <td width="10px">
                                 @can('documentos.editar')
                                     <a href="{{ route('documentos.editar', $documento) }}" class="btn btn-primay"><i
-                                            class="fas fa-edit"></i> Editar</a>
+                                            class="fas fa-edit"></i></a>
                                 @endcan
                             </td>
                         </tr>
@@ -51,7 +51,7 @@
                     @endforelse
                 </tbody>
             </table>
-
+            {{ $documentos->links() }}
         </div>
     </div>
 @endsection

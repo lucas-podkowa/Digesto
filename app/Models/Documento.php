@@ -18,4 +18,9 @@ class Documento extends Model
         'resumen',
         'fecha',
     ];
+
+    public function tipo()
+    {
+        return $this->belongsTo(TipoDoc::class, 'tipo_doc_id');
+    }
 }
