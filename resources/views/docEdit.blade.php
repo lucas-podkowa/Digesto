@@ -1,7 +1,6 @@
 @extends('layout')
 
 @section('content')
-
     <form action="{{ route('documentos.actualizar', $documento) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('put')
@@ -11,7 +10,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label>Tipo de Documento</label>
-                        <select class="form-control" name=tipo_doc>
+                        <select class="form-control" name=tipo_doc id="tipo_doc">
                             @foreach ($tipos as $tipo)
                                 <option value="{{ $tipo->tipo_doc_id }}">{{ $tipo->nombre }}</option>
                             @endforeach
@@ -55,7 +54,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                         </div>
-                        <input type="text" name="fecha" value="{{ old('fecha', $documento->fecha) }}"
+                        <input type="text" name="fecha" value="{{ old('fecha', $documento->fecha->format('d-m-Y')) }}"
                             class="form-control" id="datemask" data-inputmask-alias="datetime"
                             data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                     </div>
@@ -87,6 +86,13 @@
                 <i class="fas fa-undo"></i> Cancelar</a>
         </div>
     </form>
+@endsection
 
+@section('jsdoc')
+    <script>
+        $(function() {
+            $("#tipo_doc").val({{ $documento->tipo->tipo_doc_id }})
+        });
+    </script>
 
 @endsection

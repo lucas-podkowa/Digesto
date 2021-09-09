@@ -12,8 +12,10 @@ class DocumentoController extends Controller
 {
     public function index()
     {
-        $documentos = Documento::simplePaginate(5);
-        return view('digesto', compact('documentos'));
+        $documentos = Documento::orderBy('documento_id', 'desc')->simplePaginate(100);
+        $tipos = TipoDoc::all();
+        //$documentos = Documento::all();
+        return view('digesto', compact('documentos', 'tipos'));
     }
 
     public function nuevo()

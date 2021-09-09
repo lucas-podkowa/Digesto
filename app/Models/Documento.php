@@ -18,6 +18,7 @@ class Documento extends Model
         'resumen',
         'fecha',
     ];
+    protected $dates = ['fecha',];
 
     public function tipo()
     {

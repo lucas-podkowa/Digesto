@@ -1,14 +1,29 @@
 @extends('layout')
 
 @section('content')
+
+    <div class="card">
+        <div class="card-block">
+            <label for="selectTipo">Tipo de Documento</label>
+            <select class="browser-default custom-select" name="selectTipo" id="selectTipo">
+                @foreach ($tipos as $tipo)
+                    <option value="{{ $tipo->tipo_doc_id }}" @if ($tipo == "{{ $tipo->tipo_doc_id }}") selected @endif>
+                        {{ $tipo->nombre }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
+    </div>
+
     <div class="card">
         <div class="card-body">
             <table id="DocsTable" class="table table-striped">
                 <thead class="thead-dark">
-                    <th>Tipo</th>
+                    <th>Fecha</th>
                     <th>Número</th>
                     <th>Resúmen</th>
-                    <th>Fecha</th>
+                    <th>Tipo</th>
                     <th>Archivo</th>
                     <th>Editar</th>
                 </thead>
@@ -16,7 +31,7 @@
                     @forelse ($documentos as $documento)
                         <tr>
                             <td>
-                                {{ $documento->tipo->nombre }}
+                                {{ $documento->fecha->toFormattedDateString() }}
                             </td>
                             <td>
                                 {{ $documento['numero'] }}
@@ -25,17 +40,12 @@
                                 {{ $documento['resumen'] }}
                             </td>
                             <td>
-                                {{ $documento['fecha'] }}
+                                {{ $documento->tipo->nombre }}
                             </td>
 
                             <td class="text-center py-0 align-middle">
                                 <a href="{{ $documento->archivo }}" target="_blank" class="btn btn-outline-dark"><i
                                         class="fas fa-file-pdf"></i></a>
-
-                                {{-- <button type="button" class="btn"
-                                    onclick="showFile('{{ $documento->archivo }}')"><i
-                                        class="fas fa-file-pdf"></i></button> --}}
-
                             </td>
                             <td width="10px">
                                 @can('documentos.editar')
@@ -51,7 +61,28 @@
                     @endforelse
                 </tbody>
             </table>
-            {{ $documentos->links() }}
+            {{ $documentos->appends(['tipo' => $tipo])->links() }}
         </div>
     </div>
+@endsection
+
+@section('jsdigesto')
+    <script>
+        $(function() {
+            $selectTipoDoc = $('selectTipo');
+            $('.switch').on('click', onClickSwitchselectTipoDoc)
+            $selectTipoDoc.change(onChangeFilter);
+        });
+
+        function onClickSwitchselectTipoDoc() {
+            const tipo_doc_id = $(this).data('id');
+            location.href = '/documentos/?{tipo_doc_id}';
+        }
+
+        function onChangeFilter() {
+            const tipo = $selectTipoDoc.val();
+            location.href = '/documentos/?tipodoc=${tipo}';
+        }
+    </script>
+
 @endsection

@@ -69,7 +69,6 @@
     <script src="{{ asset('assets/lte3/dist/js/adminlte.min.js') }}"></script>
 
 
-
     <script>
         $(function() {
 
@@ -100,15 +99,20 @@
         });
         $(function() {
             $('#DocsTable').DataTable({
-                "paging": false,
+                "paging": true,
                 "lengthChange": true,
                 "searching": true,
                 "ordering": true,
                 "info": false,
-                "autoWidth": false,
+                "autoWidth": true,
             });
         });
     </script>
+
+    @yield('jsuser')
+    @yield('jsdoc')
+    @yield('jsdigesto')
+
 </body>
 
 </html>

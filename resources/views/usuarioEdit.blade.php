@@ -4,7 +4,6 @@
 
     <h5>Usuario: <b>{{ $user->name }}</h5>
     <h5>Rol Activo: <b>{{ $suRol->first() }}</b></h5>
-    {{-- <h5>Rol ID: <b>{{ $user->roles }}</b></h5> --}}
     <form action="{{ route('usuarios.actualizar', $user) }}" method="post"
         class="border border-secondary rounded p-3 mb-2 bg-secondary text-white">
         @csrf
@@ -24,11 +23,10 @@
             <div class="col-sm-2">
                 <div class="form-group">
                     <label>Rol</label>
-                    <select class="form-control" name=rol>
+                    <select class="form-control" name=rol id=rol>
                         <option value="" selected disabled>Seleccionar...</option>
                         @foreach ($roles as $rol)
-                            <option value="{{ $rol->id }}" selected="{{ $user->roles[0]->id }}">{{ $rol->name }}
-                            </option>
+                            <option value="{{ $rol->id }}">{{ $rol->name }} </option>
                         @endforeach
                     </select>
                 </div>
@@ -43,5 +41,14 @@
         </div>
     </form>
 
+
+@endsection
+
+@section('jsuser')
+    <script>
+        $(function() {
+            $("#rol").val({{ $user->roles[0]->id }})
+        });
+    </script>
 
 @endsection
