@@ -27,6 +27,6 @@ class UserSeeder extends Seeder
         ])->assignRole('Ayudante');
 
 
-        User::factory(2)->create();
+        //User::factory(15)->create();
     }
 }

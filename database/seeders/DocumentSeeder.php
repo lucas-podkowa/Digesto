@@ -14,6 +14,6 @@ class DocumentSeeder extends Seeder
      */
     public function run()
     {
-        Documento::factory(30)->create();
+        //Documento::factory(0)->create();
     }
 }

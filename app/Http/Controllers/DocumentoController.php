@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Documento;
 use App\Models\TipoDoc;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use PhpParser\Builder\Function_;
 use Spatie\Permission\Models\Role;
+
+use function PHPUnit\Framework\isEmpty;
+use function PHPUnit\Framework\isNull;
 
 class DocumentoController extends Controller
 {
@@ -34,21 +38,30 @@ class DocumentoController extends Controller
             'tipo_doc' => "required"
         ]);
 
-        $ruta = $this->guardarPDF($request);
-        if ($ruta) {
-            $doc = new Documento();
 
-            $doc->numero = $request->numero;
-            $doc->tipo_doc_id = $request->tipo_doc;
-            $doc->resumen = $request->resumen;
-            $fecha = date('Y-m-d', strtotime($request->fecha));
-            $doc->fecha = $fecha;
-            $doc->archivo = $ruta;
-            $doc->save();
+        $e = Documento::where('numero', '=', $request->numero)
+            ->where('tipo_doc_id', '=', $request->tipo_doc)
+            ->first();
+
+        if (!$e) {
+
+            $e = Documento::where('tipo_doc_id', '=', $request->tipo_doc)->get();
+
+            $ruta = $this->guardarPDF($request);
+            if ($ruta) {
+                $doc = new Documento();
+
+                $doc->numero = $request->numero;
+                $doc->tipo_doc_id = $request->tipo_doc;
+                $doc->resumen = $request->resumen;
+                $fecha = date('Y-m-d', strtotime($request->fecha));
+                $doc->fecha = $fecha;
+                $doc->archivo = $ruta;
+                $doc->save();
+            }
         } else {
-            echo "fracaso";
+            return Redirect::back()->withErrors("El tipo de documento ya existe");
         }
-
         return redirect()->route('digesto.index');
     }
 
@@ -76,6 +89,8 @@ class DocumentoController extends Controller
             if (!file_exists($ruta)) {
                 if ($file->guessExtension() == "pdf") {
                     copy($file, $ruta);
+                } else {
+                    return Redirect::back()->withErrors("No es un archivo PDF");
                 }
             }
         }

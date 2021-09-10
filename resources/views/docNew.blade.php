@@ -2,6 +2,10 @@
 
 @section('content')
 
+    @if ($errors->any())
+        <div class="alert alert-danger" role="alert">{{ $errors }}</div>
+    @endif
+
     <form action="{{ route('documentos.guardar') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="card-body">

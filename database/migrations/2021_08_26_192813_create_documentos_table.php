@@ -16,8 +16,8 @@ class CreateDocumentosTable extends Migration
         Schema::create('documento', function (Blueprint $table) {
 
             $table->increments('documento_id');
-            $table->string('numero', 30)->nullable(false);
-            $table->unsignedInteger('tipo_doc_id')->nullable(false);
+            $table->string('numero', 30)->nullable(false)->index();
+            $table->unsignedInteger('tipo_doc_id')->nullable(false)->index();
             $table->string('archivo', 255)->nullable(false);
             $table->text('resumen')->nullable(); //text equivale a 65.535 caracteres
             $table->date('fecha');
