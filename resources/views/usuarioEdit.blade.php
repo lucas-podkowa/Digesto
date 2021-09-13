@@ -12,12 +12,12 @@
         <div class="card-body">
             <div class="col-sm-4">
                 <label>Nombre</label>
-                <input type="text" class="form-control" name=name value="{{ $user->name }}">
+                <input type="text" class="form-control" name=nombre value="{{ old('nombre', $user->name) }}">
             </div>
 
             <div class="col-sm-4">
                 <label>Email</label>
-                <input type="text" class="form-control" name=email value="{{ $user->email }}">
+                <input type="text" class="form-control" name=email value="{{ old('email', $user->email) }}">
             </div>
 
             <div class="col-sm-2">

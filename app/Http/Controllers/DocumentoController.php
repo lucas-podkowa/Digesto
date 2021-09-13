@@ -18,7 +18,6 @@ class DocumentoController extends Controller
     {
         $documentos = Documento::orderBy('documento_id', 'desc')->simplePaginate(100);
         $tipos = TipoDoc::all();
-        //$documentos = Documento::all();
         return view('digesto', compact('documentos', 'tipos'));
     }
 
@@ -38,17 +37,14 @@ class DocumentoController extends Controller
             'tipo_doc' => "required"
         ]);
 
-
         $e = Documento::where('numero', '=', $request->numero)
             ->where('tipo_doc_id', '=', $request->tipo_doc)
             ->first();
 
         if (!$e) {
-
             $e = Documento::where('tipo_doc_id', '=', $request->tipo_doc)->get();
-
-            $ruta = $this->guardarPDF($request);
-            if ($ruta) {
+            $archivo = $this->guardarPDF($request);
+            if ($archivo) {
                 $doc = new Documento();
 
                 $doc->numero = $request->numero;
@@ -56,47 +52,18 @@ class DocumentoController extends Controller
                 $doc->resumen = $request->resumen;
                 $fecha = date('Y-m-d', strtotime($request->fecha));
                 $doc->fecha = $fecha;
-                $doc->archivo = $ruta;
+                $doc->archivo = $archivo;
                 $doc->save();
+            } else {
+                return back()->withInput()->withErrors("El archivo debe ser .PDF");
             }
         } else {
-            return Redirect::back()->withErrors("El tipo de documento ya existe");
+            return back()->withInput()->withErrors("El documento que desea cargar ya existe en el Digesto");
         }
         return redirect()->route('digesto.index');
     }
 
-    protected function guardarPDF(Request $r)
-    {
-        $ruta = false;
-        if ($r->hasFile("archivo")) {
 
-            $file = $r->file("archivo");
-            $tipo = TipoDoc::where('tipo_doc_id', $r->tipo_doc)->first();
-            $nombre = $tipo->nombre . "_" . $r->numero . "." . $file->guessExtension();
-            $year = date("Y", strtotime($r->fecha));
-
-            if (!file_exists(public_path("files/" . $year))) {
-                mkdir(public_path("files/" . $year));
-            }
-
-            if (!file_exists(public_path("files/" . $year . "/" . $tipo->nombre))) {
-                mkdir(public_path("files/" . $year . "/" . $tipo->nombre));
-            }
-
-            $ruta = public_path("files/" . $year . "/" . $tipo->nombre . "/" . $nombre);
-            $archivo = "files/" . $year . "/" . $tipo->nombre . "/" . $nombre;
-
-            if (!file_exists($ruta)) {
-                if ($file->guessExtension() == "pdf") {
-                    copy($file, $ruta);
-                } else {
-                    return Redirect::back()->withErrors("No es un archivo PDF");
-                }
-            }
-        }
-
-        return $archivo;
-    }
 
     public function editar(Documento $documento)
     {
@@ -109,11 +76,80 @@ class DocumentoController extends Controller
         $request->validate([
             'numero' => "required",
             'resumen' => "required",
-            'archivo' => "required"
+            'fecha' => "required",
+            'archivo' => "required",
+            'tipo_doc' => "required"
         ]);
 
-        return $documento;
-        //$roles = Role::all();
-        //return view('docEdit', compact('documento'));
+        if (($documento->numero != $request->numero) || ($documento->tipo_doc_id != $request->tipo_doc)) {
+
+            $e = Documento::where('numero', '=', $request->numero)
+                ->where('tipo_doc_id', '=', $request->tipo_doc)
+                ->first();
+            if (!$e) {
+                //$e = Documento::where('tipo_doc_id', '=', $request->tipo_doc)->get();
+                $archivo = $this->guardarPDF($request);
+                if ($archivo) {
+                    $documento->numero = $request->numero;
+                    $documento->tipo_doc_id = $request->tipo_doc;
+                    $documento->resumen = $request->resumen;
+                    $fecha = date('Y-m-d', strtotime($request->fecha));
+                    $documento->fecha = $fecha;
+                    $documento->archivo = $request->$archivo;
+                    $documento->save();
+                } else {
+                    return back()->withInput()->withErrors("El archivo debe ser .PDF");
+                }
+            } else {
+                return back()->withInput()->withErrors("El documento que desea cargar ya existe en el Digesto");
+            }
+        } else {
+
+            $archivo = $this->guardarPDF($request);
+            if ($archivo) {
+                $documento->numero = $request->numero;
+                $documento->tipo_doc_id = $request->tipo_doc;
+                $documento->resumen = $request->resumen;
+                $fecha = date('Y-m-d', strtotime($request->fecha));
+                $documento->fecha = $fecha;
+                $documento->archivo = $archivo;
+                $documento->save();
+            } else {
+                return back()->withInput()->withErrors("El archivo debe ser .PDF");
+            }
+        }
+
+        //return redirect()->route('digesto.index');
+    }
+
+    protected function guardarPDF(Request $r)
+    {
+        $archivo = false;
+        if ($r->hasFile("archivo")) {
+            $file = $r->file("archivo");
+
+            if ($file->guessExtension() == "pdf") {
+                $tipo = TipoDoc::where('tipo_doc_id', $r->tipo_doc)->first();
+                $nombre = $tipo->nombre . "_" . $r->numero . "." . $file->guessExtension();
+                $year = date("Y", strtotime($r->fecha));
+
+                if (!file_exists(public_path("files/" . $year))) {
+                    mkdir(public_path("files/" . $year));
+                }
+
+                if (!file_exists(public_path("files/" . $year . "/" . $tipo->nombre))) {
+                    mkdir(public_path("files/" . $year . "/" . $tipo->nombre));
+                }
+
+                $ruta = public_path("files/" . $year . "/" . $tipo->nombre . "/" . $nombre);
+                $archivo = "files/" . $year . "/" . $tipo->nombre . "/" . $nombre;
+
+                if (!file_exists($ruta)) {
+                    copy($file, $ruta);
+                }
+            }
+        }
+
+        return $archivo;
     }
 }

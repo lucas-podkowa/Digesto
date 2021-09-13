@@ -1,6 +1,17 @@
 @extends('layout')
 
 @section('content')
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="{{ route('documentos.actualizar', $documento) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('put')
@@ -25,9 +36,9 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="numero"
-                            value="{{ old('numero', $documento->numero) }}" id="numero"
-                            data-inputmask="'mask': ['999-9999']" data-mask>
+                        <input type="text" name="numero" class="form-control" id="numero"
+                            value="{{ old('numero', $documento->numero) }}" data-inputmask="'mask': ['999-9999']"
+                            data-mask>
                     </div>
                     @error('numero')
                         <small>*{{ $message }}</small>
@@ -80,7 +91,7 @@
         </div>
 
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="submit" class="btn btn-primary">Actualizar</button>
 
             <a class="btn btn-danger float-right" href="{{ route('digesto.index') }}">
                 <i class="fas fa-undo"></i> Cancelar</a>
