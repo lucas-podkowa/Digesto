@@ -21,26 +21,28 @@
             <table id="DocsTable" class="table table-striped">
                 <thead class="thead-dark">
                     <th>Fecha</th>
+                    <th>Tipo</th>
                     <th>Número</th>
                     <th>Resúmen</th>
-                    <th>Tipo</th>
                     <th>Archivo</th>
-                    <th>Editar</th>
+                    @can('documentos.editar')
+                        <th>Editar</th>
+                    @endcan
                 </thead>
                 <tbody>
                     @forelse ($documentos as $documento)
                         <tr>
                             <td>
-                                {{ $documento->fecha->toFormattedDateString() }}
+                                {{ $documento->fecha->format('d-m-Y') }}
+                            </td>
+                            <td>
+                                {{ $documento->tipo->nombre }}
                             </td>
                             <td>
                                 {{ $documento['numero'] }}
                             </td>
                             <td>
                                 {{ $documento['resumen'] }}
-                            </td>
-                            <td>
-                                {{ $documento->tipo->nombre }}
                             </td>
 
                             <td class="text-center py-0 align-middle">

@@ -26,15 +26,17 @@ class UserController extends Controller
 
     public function actualizar(Request $request, User $user)
     {
+        $request->validate([
+            'nombre' => "required",
+            'email' => "required",
+            'rol' => "required"
+        ]);
 
         $user->roles()->sync($request->rol);
-        $user->name = $request->name;
+        $user->name = $request->nombre;
         $user->email = $request->email;
-
 
         $user->save();
         return redirect()->route('usuarios.listar');
-
-        // // // // // // // //return view('usuarioEdit', compact('user', 'roles'));
     }
 }

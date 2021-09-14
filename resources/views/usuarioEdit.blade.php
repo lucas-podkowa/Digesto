@@ -5,7 +5,7 @@
     <h5>Usuario: <b>{{ $user->name }}</h5>
     <h5>Rol Activo: <b>{{ $suRol->first() }}</b></h5>
     <form action="{{ route('usuarios.actualizar', $user) }}" method="post"
-        class="border border-secondary rounded p-3 mb-2 bg-secondary text-white">
+        class="border border-secondary rounded p-3 mb-2 ">
         @csrf
         @method('put')
 

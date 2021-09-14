@@ -56,7 +56,7 @@
 
             <div class="col-sm-8">
                 <div class="form-group">
-                    <label>Fecha:</label>
+                    <label>Fecha del Documento</label>
 
                     <div class="input-group">
                         <div class="input-group-prepend">

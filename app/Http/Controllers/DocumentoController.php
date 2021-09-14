@@ -5,20 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Documento;
 use App\Models\TipoDoc;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
-use PhpParser\Builder\Function_;
-use Spatie\Permission\Models\Role;
-
-use function PHPUnit\Framework\isEmpty;
-use function PHPUnit\Framework\isNull;
 
 class DocumentoController extends Controller
 {
+    public $search;
+
     public function index()
     {
-        $documentos = Documento::orderBy('documento_id', 'desc')->simplePaginate(100);
         $tipos = TipoDoc::all();
-        return view('digesto', compact('documentos', 'tipos'));
+        if ($this->search != -1) {
+            $documentos = Documento::where('tipo_doc_id', $this->search)->orderBy('documento_id', 'desc')->simplePaginate(100);
+            return view('digesto', compact('documentos', 'tipos'));
+        } else {
+            $documentos = Documento::orderBy('documento_id', 'desc')->simplePaginate(100);
+            return view('digesto', compact('documentos', 'tipos'));
+        }
     }
 
     public function nuevo()
@@ -119,7 +120,7 @@ class DocumentoController extends Controller
             }
         }
 
-        //return redirect()->route('digesto.index');
+        return redirect()->route('digesto.index');
     }
 
     protected function guardarPDF(Request $r)
@@ -143,10 +144,7 @@ class DocumentoController extends Controller
 
                 $ruta = public_path("files/" . $year . "/" . $tipo->nombre . "/" . $nombre);
                 $archivo = "files/" . $year . "/" . $tipo->nombre . "/" . $nombre;
-
-                if (!file_exists($ruta)) {
-                    copy($file, $ruta);
-                }
+                copy($file, $ruta);
             }
         }
 
