@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="card">
+    {{-- <div class="card">
         <div class="card-block">
             <label for="selectTipo">Tipo de Documento</label>
             <select class="browser-default custom-select" name="selectTipo" id="selectTipo">
@@ -14,7 +14,7 @@
             </select>
         </div>
 
-    </div>
+    </div> --}}
 
     <div class="card">
         <div class="card-body">
@@ -25,15 +25,15 @@
                     <th>Número</th>
                     <th>Resúmen</th>
                     <th>Archivo</th>
-                    @can('documentos.editar')
-                        <th>Editar</th>
-                    @endcan
+                    {{-- @can('documentos.editar') --}}
+                    <th></th>
+                    {{-- @endcan --}}
                 </thead>
                 <tbody>
                     @forelse ($documentos as $documento)
                         <tr>
                             <td>
-                                {{ $documento->fecha->format('d-m-Y') }}
+                                {{ $documento->fecha->format('d/m/Y') }}
                             </td>
                             <td>
                                 {{ $documento->tipo->nombre }}
@@ -63,13 +63,16 @@
                     @endforelse
                 </tbody>
             </table>
-            {{ $documentos->appends(['tipo' => $tipo])->links() }}
+            <div>
+                {{ $documentos->links() }}
+            </div>
         </div>
     </div>
+
 @endsection
 
 @section('jsdigesto')
-    <script>
+    {{-- <script>
         $(function() {
             $selectTipoDoc = $('selectTipo');
             $('.switch').on('click', onClickSwitchselectTipoDoc)
@@ -85,6 +88,6 @@
             const tipo = $selectTipoDoc.val();
             location.href = '/documentos/?tipodoc=${tipo}';
         }
-    </script>
+    </script> --}}
 
 @endsection

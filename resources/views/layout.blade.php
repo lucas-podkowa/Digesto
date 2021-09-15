@@ -15,7 +15,6 @@
     {{-- <!-- daterange picker --> --}}
     <link rel="stylesheet" href="{{ asset('assets/lte3/plugins/daterangepicker/daterangepicker.css') }}">
 
-
     {{-- <!-- DataTables --> --}}
     <link rel="stylesheet" href="{{ asset('assets/lte3/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
     {{-- <!-- Theme style --> --}}
@@ -44,6 +43,8 @@
 
 
     <!-- jQuery -->
+
+
     <script src="{{ asset('assets/lte3/plugins/jquery/jquery.js') }}"></script>
     <script src="{{ asset('assets/lte3/plugins/jquery/jquery.min.js') }}"></script>
 
@@ -102,7 +103,7 @@
                 "paging": true,
                 "lengthChange": true,
                 "searching": true,
-                "ordering": false,
+                "ordering": true,
                 "info": false,
                 "autoWidth": true,
             });
@@ -111,7 +112,7 @@
 
     @yield('jsuser')
     @yield('jsdoc')
-    @yield('jsdigesto')
+    {{-- @yield('jsdigesto') --}}
 
 </body>
 

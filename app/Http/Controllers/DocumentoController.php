@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Documento;
 use App\Models\TipoDoc;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DocumentoController extends Controller
@@ -13,13 +14,8 @@ class DocumentoController extends Controller
     public function index()
     {
         $tipos = TipoDoc::all();
-        if ($this->search != -1) {
-            $documentos = Documento::where('tipo_doc_id', $this->search)->orderBy('documento_id', 'desc')->simplePaginate(100);
-            return view('digesto', compact('documentos', 'tipos'));
-        } else {
-            $documentos = Documento::orderBy('documento_id', 'desc')->simplePaginate(100);
-            return view('digesto', compact('documentos', 'tipos'));
-        }
+        $documentos = Documento::orderBy('documento_id', 'desc')->paginate(100);
+        return view('digesto', compact('documentos', 'tipos'));
     }
 
     public function nuevo()
@@ -46,15 +42,22 @@ class DocumentoController extends Controller
             $e = Documento::where('tipo_doc_id', '=', $request->tipo_doc)->get();
             $archivo = $this->guardarPDF($request);
             if ($archivo) {
-                $doc = new Documento();
-
-                $doc->numero = $request->numero;
-                $doc->tipo_doc_id = $request->tipo_doc;
-                $doc->resumen = $request->resumen;
-                $fecha = date('Y-m-d', strtotime($request->fecha));
-                $doc->fecha = $fecha;
-                $doc->archivo = $archivo;
-                $doc->save();
+                $f = Carbon::createFromDate(
+                    date('Y', strtotime($request->fecha)),
+                    date('m', strtotime($request->fecha)),
+                    date('d', strtotime($request->fecha))
+                );
+                if (Carbon::now()->greaterThan($f)) {
+                    $doc = new Documento();
+                    $doc->fecha = $f->toDate();
+                    $doc->numero = $request->numero;
+                    $doc->tipo_doc_id = $request->tipo_doc;
+                    $doc->resumen = $request->resumen;
+                    $doc->archivo = $archivo;
+                    $doc->save();
+                } else {
+                    return back()->withInput()->withErrors("No puede ingresar una fecha mayor a la actual");
+                }
             } else {
                 return back()->withInput()->withErrors("El archivo debe ser .PDF");
             }
@@ -91,13 +94,21 @@ class DocumentoController extends Controller
                 //$e = Documento::where('tipo_doc_id', '=', $request->tipo_doc)->get();
                 $archivo = $this->guardarPDF($request);
                 if ($archivo) {
-                    $documento->numero = $request->numero;
-                    $documento->tipo_doc_id = $request->tipo_doc;
-                    $documento->resumen = $request->resumen;
-                    $fecha = date('Y-m-d', strtotime($request->fecha));
-                    $documento->fecha = $fecha;
-                    $documento->archivo = $request->$archivo;
-                    $documento->save();
+                    $f = Carbon::createFromDate(
+                        date('Y', strtotime($request->fecha)),
+                        date('m', strtotime($request->fecha)),
+                        date('d', strtotime($request->fecha))
+                    );
+                    if (Carbon::now()->greaterThan($f)) {
+                        $documento->numero = $request->numero;
+                        $documento->tipo_doc_id = $request->tipo_doc;
+                        $documento->resumen = $request->resumen;
+                        $documento->fecha = $f->toDate();
+                        $documento->archivo = $request->$archivo;
+                        $documento->save();
+                    } else {
+                        return back()->withInput()->withErrors("No puede ingresar una fecha mayor a la actual");
+                    }
                 } else {
                     return back()->withInput()->withErrors("El archivo debe ser .PDF");
                 }

@@ -22,11 +22,11 @@ class DocumentoFactory extends Factory
     public function definition()
     {
         return [
-            'numero' => $this->faker->name(),
-            'tipo_doc_id'=> $this->faker->randomElement(['1', '2', '3']),
-            'archivo'=> $this->faker->sentence(),
-            'resumen'=> $this->faker->paragraph(),
-            'fecha'=> $this->faker->date()
+            'numero' => $this->faker->buildingNumber(),
+            'tipo_doc_id' => $this->faker->randomElement(['1', '2', '3']),
+            'archivo' => $this->faker->sentence(),
+            'resumen' => $this->faker->paragraph(),
+            'fecha' => $this->faker->date()
         ];
     }
 }

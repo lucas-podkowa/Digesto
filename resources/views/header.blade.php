@@ -1,5 +1,5 @@
 <header>
-    <nav class="navbar navbar-expand-md navbar-dark bd-navbar" style="background-color: rgb(15, 143, 228);">
+    <nav class="navbar navbar-expand-md navbar-dark bd-navbar" style="background-color: rgb(31, 143, 228);">
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown">

@@ -63,7 +63,7 @@
                             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                         </div>
                         <input type="text" name="fecha" value="{{ old('fecha') }}" class="form-control" id="datemask"
-                            data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                            data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
                     </div>
                     @error('fecha')
                         <small>*{{ $message }}</small>

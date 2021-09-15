@@ -67,7 +67,7 @@
                         </div>
                         <input type="text" name="fecha" value="{{ old('fecha', $documento->fecha->format('d-m-Y')) }}"
                             class="form-control" id="datemask" data-inputmask-alias="datetime"
-                            data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                            data-inputmask-inputformat="dd-mm-yyyy" data-mask>
                     </div>
                     @error('fecha')
                         <small>*{{ $message }}</small>
