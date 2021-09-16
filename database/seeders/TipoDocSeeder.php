@@ -15,18 +15,24 @@ class TipoDocSeeder extends Seeder
     public function run()
     {
         TipoDoc::create([
-            'nombre' => 'Resolucion',
-            'descripcion' => 'asads',
-        ]);
-        
-        TipoDoc::create([
-            'nombre' => 'Disposicion',
-            'descripcion' => 'asddas',
+            'nombre' => 'Convenio',
+            'descripcion' => 'Convenios celebrados por la Secretarías y autoridades de la Facultad de Ingeniería - UNaM.',
         ]);
         TipoDoc::create([
-            'nombre' => 'Otro',
-            'descripcion' => 'gdfsg',
+            'nombre' => 'Convocatoria',
+            'descripcion' => 'Convocatorias',
         ]);
-
+        TipoDoc::create([
+            'nombre' => 'Disposición',
+            'descripcion' => 'Disposiciones del Consejo Directivo de la Facultad de Ingeniería - UNaM.',
+        ]);
+        TipoDoc::create([
+            'nombre' => 'Ordenanza',
+            'descripcion' => 'Ordenanzas aprobadas por el Consejo Directivo de la Facultad de Ingeniería - UNaM.',
+        ]);
+        TipoDoc::create([
+            'nombre' => 'Resolución',
+            'descripcion' => 'Resoluciones del Rector de la Universidad Nacional de Misiones.',
+        ]);
     }
 }

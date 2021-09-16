@@ -37,7 +37,7 @@
                             <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                         </div>
                         <input type="text" name="numero" class="form-control" id="numero"
-                            value="{{ old('numero', $documento->numero) }}" data-inputmask="'mask': ['999-9999']"
+                            value="{{ old('numero', $documento->numero) }}" data-inputmask="'mask': ['9999-9999']"
                             data-mask>
                     </div>
                     @error('numero')

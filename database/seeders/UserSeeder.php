@@ -16,17 +16,14 @@ class UserSeeder extends Seeder
     {
         User::create([
             'name' => 'Lucas Podkowa',
-            'email' => 'lucaspodkowa@gmail.com',
-            'password' => bcrypt('hh1y32gg')
+            'email' => 'lucaspodkowa@fio.unam.edu.ar',
+            'password' => bcrypt('aspire_')
         ])->assignRole('Administrador');
 
         User::create([
-            'name' => 'Lucas Ayudante',
-            'email' => 'lucaspodkowa@hotmail.com',
-            'password' => bcrypt('hh1y32gg')
-        ])->assignRole('Ayudante');
-
-
-        //User::factory(15)->create();
+            'name' => 'Lucas Visitante',
+            'email' => 'lucaspodkowa@gmail.com',
+            'password' => bcrypt('aspire_')
+        ])->assignRole('Visitante');
     }
 }

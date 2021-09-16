@@ -80,8 +80,8 @@
                 'placeholder': 'dd/mm/aaaa'
             })
             //Datemask dd/mm/yyyy
-            $('#numero').inputmask('999-9999', {
-                'placeholder': '000-0000'
+            $('#numero').inputmask('9999-9999', {
+                'placeholder': '0000-0000'
             })
 
 
