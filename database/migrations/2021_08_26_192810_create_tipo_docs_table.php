@@ -14,15 +14,12 @@ class CreateTipoDocsTable extends Migration
     public function up()
     {
         Schema::create('tipo_doc', function (Blueprint $table) {
-            
+
             $table->increments('tipo_doc_id');
             $table->string('nombre', 30)->nullable(false);
             $table->string('descripcion', 255)->nullable();
+            $table->boolean('activo')->default(true)->nullable(false);
             $table->timestamps();
-            //$table->string('subdirectorio', 255)->nullable(false);
-            //$table->string('css', 255)->nullable();
-            //$table->string('imagen', 255)->nullable();
-            
         });
     }
 

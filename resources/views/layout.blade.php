@@ -112,7 +112,6 @@
 
     @yield('jsuser')
     @yield('jsdoc')
-    {{-- @yield('jsdigesto') --}}
 
 </body>
 

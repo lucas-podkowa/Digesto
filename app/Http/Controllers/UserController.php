@@ -20,6 +20,7 @@ class UserController extends Controller
     public function editar(User $user)
     {
         $suRol = $user->getRoleNames(); // Returns a collection
+        //dd($suRol);
         $roles = Role::all();
         return view('usuarioEdit', compact('user', 'roles', 'suRol'));
     }

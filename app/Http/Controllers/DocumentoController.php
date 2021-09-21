@@ -13,14 +13,15 @@ class DocumentoController extends Controller
 
     public function index()
     {
-        $tipos = TipoDoc::all();
+        $tipos = TipoDoc::where('activo', '=', 1)->get();
         $documentos = Documento::orderBy('documento_id', 'desc')->paginate(100);
         return view('digesto', compact('documentos', 'tipos'));
     }
 
     public function nuevo()
     {
-        $tipos = TipoDoc::all();
+        //$tipos = TipoDoc::all();
+        $tipos = TipoDoc::where('activo', '=', 1)->get();
         return view('docNew', compact('tipos'));
     }
 
@@ -91,7 +92,6 @@ class DocumentoController extends Controller
                 ->where('tipo_doc_id', '=', $request->tipo_doc)
                 ->first();
             if (!$e) {
-                //$e = Documento::where('tipo_doc_id', '=', $request->tipo_doc)->get();
                 $archivo = $this->guardarPDF($request);
                 if ($archivo) {
                     $f = Carbon::createFromDate(
@@ -104,7 +104,7 @@ class DocumentoController extends Controller
                         $documento->tipo_doc_id = $request->tipo_doc;
                         $documento->resumen = $request->resumen;
                         $documento->fecha = $f->toDate();
-                        $documento->archivo = $request->$archivo;
+                        $documento->archivo = $archivo;
                         $documento->save();
                     } else {
                         return back()->withInput()->withErrors("No puede ingresar una fecha mayor a la actual");
@@ -116,7 +116,6 @@ class DocumentoController extends Controller
                 return back()->withInput()->withErrors("El documento que desea cargar ya existe en el Digesto");
             }
         } else {
-
             $archivo = $this->guardarPDF($request);
             if ($archivo) {
                 $documento->numero = $request->numero;

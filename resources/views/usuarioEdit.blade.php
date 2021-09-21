@@ -42,13 +42,16 @@
     </form>
 
 
+
+
 @endsection
 
-@section('jsuser')
+{{-- @section('jsuser')
     <script>
         $(function() {
-            $("#rol").val({{ $user->roles[0]->id }})
+            if (("1" + "{{ $suRol->first() }}").length > 1) {
+                $("#rol").val({{ $user->roles[0]->id }})
+            }
         });
     </script>
-
-@endsection
+@endsection --}}

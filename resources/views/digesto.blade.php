@@ -70,24 +70,3 @@
     </div>
 
 @endsection
-
-@section('jsdigesto')
-    {{-- <script>
-        $(function() {
-            $selectTipoDoc = $('selectTipo');
-            $('.switch').on('click', onClickSwitchselectTipoDoc)
-            $selectTipoDoc.change(onChangeFilter);
-        });
-
-        function onClickSwitchselectTipoDoc() {
-            const tipo_doc_id = $(this).data('id');
-            location.href = '/documentos/?{tipo_doc_id}';
-        }
-
-        function onChangeFilter() {
-            const tipo = $selectTipoDoc.val();
-            location.href = '/documentos/?tipodoc=${tipo}';
-        }
-    </script> --}}
-
-@endsection
