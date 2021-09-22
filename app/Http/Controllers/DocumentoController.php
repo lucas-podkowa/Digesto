@@ -6,6 +6,7 @@ use App\Models\Documento;
 use App\Models\TipoDoc;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+//use App\Http\Request;
 
 class DocumentoController extends Controller
 {
