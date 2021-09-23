@@ -428,8 +428,8 @@
                     </g>
 
                 </svg> --}}
+                <img src="{{url('/img/logo.gif')}}" alt="logo">
 
-                <img src="/img/logo.gif" alt="logo">
             </div>
 
             <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
