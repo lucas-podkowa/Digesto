@@ -26,6 +26,7 @@ class DocumentoFactory extends Factory
             'tipo_doc_id' => $this->faker->randomElement(['1', '2', '3']),
             'archivo' => $this->faker->sentence(),
             'resumen' => $this->faker->paragraph(),
+            'texto' => $this->faker->paragraphs(20, true),
             'fecha' => $this->faker->date()
         ];
     }

@@ -6,17 +6,42 @@ use App\Models\Documento;
 use App\Models\TipoDoc;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+
 //use App\Http\Request;
 
 class DocumentoController extends Controller
 {
     public $search;
 
-    public function index()
+    public function index(Request $request)
     {
+        $filtro = $request->get('buscarpor');
+        $year = $request->get('year');
         $tipos = TipoDoc::where('activo', '=', 1)->get();
-        $documentos = Documento::orderBy('documento_id', 'desc')->paginate(100);
+
+        $documentos = Documento::where('resumen', 'like', '%' . $filtro . '%')
+            ->orwhere('numero', 'like', '%' . $filtro . '%')
+            ->orwhere('texto', 'like', '%' . $filtro . '%')
+            ->orderBy('fecha', 'desc')
+            ->paginate(20);
         return view('digesto', compact('documentos', 'tipos'));
+
+        //$periodos = Documento::whereNotNull('fecha')->distinct()->get([DB::raw('YEAR(fecha) as year')])->sortByDesc('year');
+        //$documentos = Documento::whereYEAR('fecha', $year)->where(
+        //    function ($query) use ($filtro) {
+        //        $query->where('resumen', 'like', '%' . $filtro . '%')
+        //            ->orwhere('numero', 'like', '%' . $filtro . '%')
+        //            ->orwhere('texto', 'like', '%' . $filtro . '%');
+        //    })
+        //    ->orderBy('fecha', 'desc')
+        //    ->paginate(20);
+        //return view('digesto', compact('documentos', 'tipos', 'periodos'));
+
+    }
+
+    public function ver(Documento $documento)
+    {
+        return view('text', compact('documento'));
     }
 
     public function nuevo()
@@ -32,8 +57,9 @@ class DocumentoController extends Controller
             'numero' => "required",
             'resumen' => "required",
             'fecha' => "required",
+            'texto' => "required",
             'archivo' => "required",
-            'tipo_doc' => "required"
+            'tipo_doc' => "required",
         ]);
 
         $e = Documento::where('numero', '=', $request->numero)
@@ -55,6 +81,7 @@ class DocumentoController extends Controller
                     $doc->numero = $request->numero;
                     $doc->tipo_doc_id = $request->tipo_doc;
                     $doc->resumen = $request->resumen;
+                    $doc->texto = $request->texto;
                     $doc->archivo = $archivo;
                     $doc->save();
                 } else {
@@ -69,8 +96,6 @@ class DocumentoController extends Controller
         return redirect()->route('digesto.index');
     }
 
-
-
     public function editar(Documento $documento)
     {
         $tipos = TipoDoc::all();
@@ -82,9 +107,10 @@ class DocumentoController extends Controller
         $request->validate([
             'numero' => "required",
             'resumen' => "required",
+            'texto' => "required",
             'fecha' => "required",
             'archivo' => "required",
-            'tipo_doc' => "required"
+            'tipo_doc' => "required",
         ]);
 
         if (($documento->numero != $request->numero) || ($documento->tipo_doc_id != $request->tipo_doc)) {
@@ -104,6 +130,7 @@ class DocumentoController extends Controller
                         $documento->numero = $request->numero;
                         $documento->tipo_doc_id = $request->tipo_doc;
                         $documento->resumen = $request->resumen;
+                        $documento->texto = $request->texto;
                         $documento->fecha = $f->toDate();
                         $documento->archivo = $archivo;
                         $documento->save();
@@ -122,6 +149,7 @@ class DocumentoController extends Controller
                 $documento->numero = $request->numero;
                 $documento->tipo_doc_id = $request->tipo_doc;
                 $documento->resumen = $request->resumen;
+                $documento->texto = $request->texto;
                 $fecha = date('Y-m-d', strtotime($request->fecha));
                 $documento->fecha = $fecha;
                 $documento->archivo = $archivo;

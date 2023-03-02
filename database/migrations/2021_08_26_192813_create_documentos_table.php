@@ -20,6 +20,7 @@ class CreateDocumentosTable extends Migration
             $table->unsignedInteger('tipo_doc_id')->nullable(false)->index();
             $table->string('archivo', 255)->nullable(false);
             $table->text('resumen')->nullable(); //text equivale a 65.535 caracteres
+            $table->mediumtext('texto')->nullable(); //text equivale a 16.7 millones de caracteres
             $table->date('fecha');
             $table->timestamps();
 

@@ -1,7 +1,6 @@
 @extends('layout')
 
 @section('content')
-
     {{-- <div class="card">
         <div class="card-block">
             <label for="selectTipo">Tipo de Documento</label>
@@ -18,16 +17,30 @@
 
     <div class="card">
         <div class="card-body">
+            <nav class="navbar navbar-light float-right">
+                <form class="form-inline">
+                    {{--
+                    <label for="selectTipo">Año</label>
+                    
+                    <select class="browser-default custom-select" name="year">
+                        @foreach ($periodos as $p)
+                            <option value="{{ $p->year }}" >
+                                {{ $p->year }}
+                            </option>
+                        @endforeach
+                    </select> 
+                    --}}
+                    <input name="buscarpor" style="width:500px" class="form-control mr-sm-2" type="search"
+                        placeholder="Ingresar el texto a buscar y presionar la tecla ENTER" aria-label="Search">
+                </form>
+            </nav>
+
             <table id="DocsTable" class="table table-striped">
                 <thead class="thead-dark">
                     <th>Fecha</th>
                     <th>Tipo</th>
                     <th>Número</th>
                     <th>Resúmen</th>
-                    <th>Archivo</th>
-                    {{-- @can('documentos.editar') --}}
-                    <th></th>
-                    {{-- @endcan --}}
                 </thead>
                 <tbody>
                     @forelse ($documentos as $documento)
@@ -43,23 +56,21 @@
                             </td>
                             <td>
                                 {{ $documento['resumen'] }}
-                            </td>
-
-                            <td class="text-center py-0 align-middle">
-                                <a href="{{ $documento->archivo }}" target="_blank" class="btn btn-outline-dark"><i
-                                        class="fas fa-file-pdf"></i></a>
-                            </td>
-                            <td width="10px">
+                                <a href="{{ route('documentos.ver', $documento) }}" title="Leer el texto completo"
+                                    class="btn btn-primay btn-lg">
+                                    <i class="fas fa-folder-open"></i>
+                                </a>
+                                <a href="{{ $documento->archivo }}" title="Descargar Documento" target="_blank"
+                                    class="btn btn-primay btn-lg">
+                                    <i class="fas fa-file-pdf"></i>
+                                </a>
                                 @can('documentos.editar')
-                                    <a href="{{ route('documentos.editar', $documento) }}" class="btn btn-primay"><i
-                                            class="fas fa-edit"></i></a>
+                                    <a href="{{ route('documentos.editar', $documento) }}" title="Editar"
+                                        class="btn btn-primay"><i class="fas fa-edit"></i></a>
                                 @endcan
                             </td>
                         </tr>
                     @empty
-                        <div class="alert alert-secondary" role="alert">
-                            El Digesto esta vacio
-                        </div>
                     @endforelse
                 </tbody>
             </table>
@@ -68,5 +79,4 @@
             </div>
         </div>
     </div>
-
 @endsection

@@ -16,6 +16,7 @@ class Documento extends Model
         'numero',
         'archivo',
         'resumen',
+        'texto',
         'fecha',
     ];
     protected $dates = ['fecha',];

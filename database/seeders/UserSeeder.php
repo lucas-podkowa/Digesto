@@ -16,8 +16,8 @@ class UserSeeder extends Seeder
     {
         User::create([
             'name' => 'Lucas Podkowa',
-            'email' => 'lucaspodkowa@fio.unam.edu.ar',
-            'password' => bcrypt('aspire_')
+            'email' => 'lucas.podkowa@fio.unam.edu.ar',
+            'password' => bcrypt('hh1y32gg')
         ])->assignRole('Administrador');
     }
 }

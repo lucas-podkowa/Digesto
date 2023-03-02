@@ -389,14 +389,12 @@
                 color: rgba(203, 213, 224, var(--text-opacity))
             }
         }
-
     </style>
 
     <style>
         body {
             font-family: 'Nunito', sans-serif;
         }
-
     </style>
 </head>
 
@@ -408,11 +406,11 @@
                 @auth
                     <a href="{{ url('/documentos') }}" class="text-sm text-gray-700 underline">Visualizar Digesto</a>
                 @else
-                    <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Ingresar</a>
+                    <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Usuario Editor</a>
 
-                    @if (Route::has('register'))
+                    {{--@if (Route::has('register'))
                         <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Registrarme</a>
-                    @endif
+                    @endif--}}
                 @endauth
             </div>
         @endif
@@ -428,7 +426,7 @@
                     </g>
 
                 </svg> --}}
-                <img src="{{url('/img/logo.gif')}}" alt="logo">
+                <img src="{{ url('/img/logo.gif') }}" alt="logo">
 
             </div>
 
@@ -451,7 +449,9 @@
                         <div class="ml-12">
                             <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
                                 El Consejo Directivo junto al Consejo Superior y a la Asamblea Universitaria, componen
-                                el órgano de gobierno de la Universidad Nacional de Misiones definido como <b>Cuerpos Colegiados</b>. A estos les corresponden funciones normativas, de formulación de políticas,
+                                el órgano de gobierno de la Universidad Nacional de Misiones definido como <b>Cuerpos
+                                    Colegiados</b>. A estos les corresponden funciones normativas, de formulación de
+                                políticas,
                                 control de gestión, asesoramiento, alzada y todas aquellas que el estatuto le asigne.
                             </div>
                         </div>

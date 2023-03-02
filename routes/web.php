@@ -30,6 +30,10 @@ Route::get('/documentos', [DocumentoController::class, 'index'])
 
 
 // -- DOCUMENTOS --
+Route::get('/documentos/{documento}/ver', [DocumentoController::class, 'ver'])
+    //->middleware('documentos.ver')
+    ->name('documentos.ver');
+
 Route::get('/documentos/nuevo', [DocumentoController::class, 'nuevo'])
     ->middleware('can:documentos.nuevo')
     ->name('documentos.nuevo');

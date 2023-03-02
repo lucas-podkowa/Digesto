@@ -53,6 +53,15 @@
                     <small>*{{ $message }}</small>
                 @enderror
             </div>
+            
+            <div class="col-sm-8">
+                <label>Contenido</label>
+                <textarea class="form-control" name=texto rows="10"
+                    placeholder="Texto completo del Documento ...">{{ old('texto') }}</textarea>
+                @error('texto')
+                    <small>*{{ $message }}</small>
+                @enderror
+            </div>
 
             <div class="col-sm-8">
                 <div class="form-group">
