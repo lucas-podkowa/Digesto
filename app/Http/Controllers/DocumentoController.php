@@ -6,6 +6,7 @@ use App\Models\Documento;
 use App\Models\TipoDoc;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 //use App\Http\Request;
 
@@ -57,7 +58,6 @@ class DocumentoController extends Controller
             'numero' => "required",
             'resumen' => "required",
             'fecha' => "required",
-            'texto' => "required",
             'archivo' => "required",
             'tipo_doc' => "required",
         ]);
@@ -107,7 +107,6 @@ class DocumentoController extends Controller
         $request->validate([
             'numero' => "required",
             'resumen' => "required",
-            'texto' => "required",
             'fecha' => "required",
             'archivo' => "required",
             'tipo_doc' => "required",

@@ -3,6 +3,7 @@
 use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,9 @@ Route::get('/home', [HomeController::class, 'home'])
 Route::get('/documentos', [DocumentoController::class, 'index'])
     ->name('digesto.index');
 
+Route::get('/documentos/{documento}/qr', [DocumentoController::class, 'generar_qr'])
+    //->middleware('can:usuarios.listar')
+    ->name('documentos.qr');
 
 // -- DOCUMENTOS --
 Route::get('/documentos/{documento}/ver', [DocumentoController::class, 'ver'])
@@ -63,3 +67,8 @@ Route::get('/usuarios/{user}/editar', [UserController::class, 'editar'])
 Route::put('/usuarios/{user}', [UserController::class, 'actualizar'])
     ->middleware('can:usuarios.actualizar')
     ->name('usuarios.actualizar');
+
+// -- QR --
+//Route::get('/usuarios', [CertificadoController::class, 'generar_qr'])
+//    //->middleware('can:usuarios.listar')
+//    ->name('certificado.generarQR');

@@ -64,6 +64,10 @@
                                     class="btn btn-primay btn-lg">
                                     <i class="fas fa-file-pdf"></i>
                                 </a>
+                                <a href="{{ route('documentos.qr', $documento) }}" title="Generar Codigo QR"
+                                    class="btn btn-primay btn-lg">
+                                    <i class="fas fa-qrcode"></i>
+                                </a>
                                 @can('documentos.editar')
                                     <a href="{{ route('documentos.editar', $documento) }}" title="Editar"
                                         class="btn btn-primay"><i class="fas fa-edit"></i></a>
