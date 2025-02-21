@@ -27,11 +27,24 @@
                                 Digesto</a>
                         @endcan
                     </li>
-                    <li class="nav-item active">
+                    {{-- <li class="nav-item active">
                         @can('documentos.nuevo')
                             <a class="nav-link" href="{{ route('documentos.nuevo') }}"><i class="fas fa-plus"></i> Nuevo</a>
                         @endcan
 
+                    </li> --}}
+
+                    <li class="nav-item dropdown active">
+                        @can('documentos.nuevo')
+                            <a class="nav-link dropdown-toggle" href="#" id="nuevoDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-plus"></i> Nuevo
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="nuevoDropdown">
+                                <a class="dropdown-item" href="{{ route('documentos.nuevo') }}">📄 Documento C.D.</a>
+                                <a class="dropdown-item" href="{{ route('convenios.nuevo') }}">📜 Convenio</a>
+                            </div>
+                        @endcan
                     </li>
                     <li class="nav-item active">
                         @can('usuarios.listar')

@@ -43,29 +43,29 @@
                     <th>Resúmen</th>
                 </thead>
                 <tbody>
-                    @forelse ($documentos as $documento)
+                    @forelse ($convenios as $convenio)
                         <tr>
                             <td>
-                                {{ $documento->fecha->format('d/m/Y') }}
+                                {{ $convenio->fecha->format('d/m/Y') }}
                             </td>
                             <td>
-                                {{ $documento->tipo->nombre }}
+                                {{ $convenio->tipo->nombre }}
                             </td>
                             <td>
-                                {{ $documento['numero'] }}
+                                {{ $convenio['numero'] }}
                             </td>
                             <td>
-                                {{ $documento['resumen'] }}
-                                <a href="{{ route('documentos.ver', $documento) }}" title="Leer el texto completo"
+                                {{ $convenio['resumen'] }}
+                                <a href="{{ route('convenios.ver', $convenio) }}" title="Leer el texto completo"
                                     class="btn btn-primay btn-lg">
                                     <i class="fas fa-folder-open"></i>
                                 </a>
-                                <a href="{{ $documento->archivo }}" title="Descargar Documento" target="_blank"
+                                <a href="{{ $convenio->archivo }}" title="Descargar Documento" target="_blank"
                                     class="btn btn-primay btn-lg">
                                     <i class="fas fa-file-pdf"></i>
                                 </a>
-                                @can('documentos.editar')
-                                    <a href="{{ route('documentos.editar', $documento) }}" title="Editar"
+                                @can('convenios.editar')
+                                    <a href="{{ route('convenios.editar', $convenio) }}" title="Editar"
                                         class="btn btn-primay"><i class="fas fa-edit"></i></a>
                                 @endcan
                             </td>
@@ -75,7 +75,7 @@
                 </tbody>
             </table>
             <div>
-                {{ $documentos->links() }}
+                {{ $convenios->links() }}
             </div>
         </div>
     </div>

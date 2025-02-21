@@ -1,9 +1,14 @@
-<?php namespace App\Http;
+<?php
+
+namespace App\Http;
+
 use \Illuminate\Http\Request as Base;
 
-class Request extends Base {
+class Request extends Base
+{
 
-    public function isSecure() {
+    public function isSecure(): bool
+    {
         $isSecure = parent::isSecure();
         if ($isSecure) {
             return true;
@@ -15,5 +20,4 @@ class Request extends Base {
         }
         return false;
     }
-
 }

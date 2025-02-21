@@ -6,9 +6,6 @@ use App\Models\Documento;
 use App\Models\TipoDoc;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
-
-//use App\Http\Request;
 
 class DocumentoController extends Controller
 {
@@ -26,18 +23,6 @@ class DocumentoController extends Controller
             ->orderBy('fecha', 'desc')
             ->paginate(20);
         return view('digesto', compact('documentos', 'tipos'));
-
-        //$periodos = Documento::whereNotNull('fecha')->distinct()->get([DB::raw('YEAR(fecha) as year')])->sortByDesc('year');
-        //$documentos = Documento::whereYEAR('fecha', $year)->where(
-        //    function ($query) use ($filtro) {
-        //        $query->where('resumen', 'like', '%' . $filtro . '%')
-        //            ->orwhere('numero', 'like', '%' . $filtro . '%')
-        //            ->orwhere('texto', 'like', '%' . $filtro . '%');
-        //    })
-        //    ->orderBy('fecha', 'desc')
-        //    ->paginate(20);
-        //return view('digesto', compact('documentos', 'tipos', 'periodos'));
-
     }
 
     public function ver(Documento $documento)
@@ -47,7 +32,6 @@ class DocumentoController extends Controller
 
     public function nuevo()
     {
-        //$tipos = TipoDoc::all();
         $tipos = TipoDoc::where('activo', '=', 1)->get();
         return view('docNew', compact('tipos'));
     }
