@@ -20,7 +20,7 @@
                     <div class="form-group">
                         <label>Tipo de Convenio</label>
 
-                        <select class="form-control" name=tipo_doc>
+                        <select class="form-control" name=tipo_convenio>
                             @foreach ($tipos as $tipo)
                                 <option value="{{ $tipo->tipo_convenio_id }}">{{ $tipo->nombre }}</option>
                             @endforeach
@@ -46,7 +46,7 @@
             </div>
 
             <!-- Campos para Razón Social y CUIT -->
-            <div class="row mt-3">
+            <div class="row mt-2">
                 <div class="col-sm-6">
                     <label for="razon_social">Razón Social</label>
                     <input type="text" name="razon_social" class="form-control" id="razon_social"
@@ -66,7 +66,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-8 row mt-3">
+            <div class="col-sm-8 row mt-2">
                 <label>Resúmen</label>
                 <textarea class="form-control" name=resumen rows="3" placeholder="Redactar ...">{{ old('resumen') }}</textarea>
                 @error('resumen')
@@ -74,7 +74,7 @@
                 @enderror
             </div>
 
-            <div class="col-sm-8 row mt-3">
+            <div class="col-sm-8 row mt-2">
                 <label>Contenido</label>
                 <textarea class="form-control" name=texto rows="10" placeholder="Texto completo del Documento ...">{{ old('texto') }}</textarea>
                 @error('texto')
@@ -90,7 +90,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                         </div>
-                        <input type="text" name="fecha" value="{{ old('fecha') }}" class="form-control"
+                        <input type="date" name="fecha" value="{{ old('fecha') }}" class="form-control"
                             id="datemask" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy"
                             data-mask>
                     </div>

@@ -22,18 +22,18 @@ class DocumentoController extends Controller
             ->orwhere('texto', 'like', '%' . $filtro . '%')
             ->orderBy('fecha', 'desc')
             ->paginate(20);
-        return view('digesto', compact('documentos', 'tipos'));
+        return view('layouts.expedientes.documentos', compact('documentos', 'tipos'));
     }
 
     public function ver(Documento $documento)
     {
-        return view('text', compact('documento'));
+        return view('layouts.expedientes.ver', compact('documento'));
     }
 
     public function nuevo()
     {
         $tipos = TipoDoc::where('activo', '=', 1)->get();
-        return view('docNew', compact('tipos'));
+        return view('layouts.expedientes.nuevo', compact('tipos'));
     }
 
     public function guardar(Request $request)
@@ -83,7 +83,7 @@ class DocumentoController extends Controller
     public function editar(Documento $documento)
     {
         $tipos = TipoDoc::all();
-        return view('docEdit', compact('documento', 'tipos'));
+        return view('layouts.expedientes.editar', compact('documento', 'tipos'));
     }
 
     public function actualizar(Request $request, Documento $documento)

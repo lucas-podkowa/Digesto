@@ -9,11 +9,8 @@ class Empresa extends Model
 {
     use HasFactory;
     protected $table = 'empresa';
-
-    protected $fillable = [
-        'razon_social',
-        'cuit'
-    ];
+    protected $primaryKey = 'empresa_id';
+    protected $fillable = ['razon_social', 'cuit'];
 
     // Define relationship to Convenio
     public function convenios()

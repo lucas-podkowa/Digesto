@@ -7,6 +7,8 @@ use App\Models\Empresa;
 use App\Models\TipoConvenio;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 
 class ConvenioController extends Controller
 {
@@ -39,6 +41,7 @@ class ConvenioController extends Controller
 
     public function guardar(Request $request)
     {
+
         $request->validate([
             'numero' => "required",
             'resumen' => "required",
@@ -67,6 +70,7 @@ class ConvenioController extends Controller
             return back()->withInput()->withErrors("No puede ingresar una fecha futura.");
         }
         // Buscar o crear empresa
+
         $empresa = Empresa::firstOrCreate(
             ['razon_social' => $request->razon_social, 'cuit' => $request->cuit]
         );
@@ -130,11 +134,37 @@ class ConvenioController extends Controller
         return redirect()->route('convenios.index');
     }
 
-    private function guardarPDF(Request $request)
+    private function guardarPDF(Request $r)
     {
-        if ($request->hasFile('archivo') && $request->file('archivo')->isValid()) {
-            return $request->file('archivo')->store('convenios', 'public');
+        // if ($request->hasFile('archivo') && $request->file('archivo')->isValid()) {
+        //     return $request->file('archivo')->store('convenios', 'public');
+        // }
+        // return false;
+
+
+        $archivo = false;
+        if ($r->hasFile("archivo")) {
+            $file = $r->file("archivo");
+
+            if ($file->guessExtension() == "pdf") {
+                $tipo = TipoConvenio::where('tipo_convenio_id', $r->tipo_convenio)->first();
+                $nombre = $tipo->nombre . "_" . $r->numero . "." . $file->guessExtension();
+                $year = date("Y", strtotime($r->fecha));
+
+                if (!file_exists(public_path("files/" . $year))) {
+                    mkdir(public_path("files/" . $year));
+                }
+
+                if (!file_exists(public_path("files/" . $year . "/" . $tipo->nombre))) {
+                    mkdir(public_path("files/" . $year . "/" . $tipo->nombre));
+                }
+
+                $ruta = public_path("files/" . $year . "/" . $tipo->nombre . "/" . $nombre);
+                $archivo = "files/" . $year . "/" . $tipo->nombre . "/" . $nombre;
+                copy($file, $ruta);
+            }
         }
-        return false;
+
+        return $archivo;
     }
 }
