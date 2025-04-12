@@ -7,8 +7,6 @@ use App\Models\TipoDoc;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-//use App\Http\Request;
-
 class DocumentoController extends Controller
 {
     public $search;
@@ -24,31 +22,18 @@ class DocumentoController extends Controller
             ->orwhere('texto', 'like', '%' . $filtro . '%')
             ->orderBy('fecha', 'desc')
             ->paginate(20);
-        return view('digesto', compact('documentos', 'tipos'));
-
-        //$periodos = Documento::whereNotNull('fecha')->distinct()->get([DB::raw('YEAR(fecha) as year')])->sortByDesc('year');
-        //$documentos = Documento::whereYEAR('fecha', $year)->where(
-        //    function ($query) use ($filtro) {
-        //        $query->where('resumen', 'like', '%' . $filtro . '%')
-        //            ->orwhere('numero', 'like', '%' . $filtro . '%')
-        //            ->orwhere('texto', 'like', '%' . $filtro . '%');
-        //    })
-        //    ->orderBy('fecha', 'desc')
-        //    ->paginate(20);
-        //return view('digesto', compact('documentos', 'tipos', 'periodos'));
-
+        return view('layouts.expedientes.documentos', compact('documentos', 'tipos'));
     }
 
     public function ver(Documento $documento)
     {
-        return view('text', compact('documento'));
+        return view('layouts.expedientes.ver', compact('documento'));
     }
 
     public function nuevo()
     {
-        //$tipos = TipoDoc::all();
         $tipos = TipoDoc::where('activo', '=', 1)->get();
-        return view('docNew', compact('tipos'));
+        return view('layouts.expedientes.nuevo', compact('tipos'));
     }
 
     public function guardar(Request $request)
@@ -57,7 +42,6 @@ class DocumentoController extends Controller
             'numero' => "required",
             'resumen' => "required",
             'fecha' => "required",
-            'texto' => "required",
             'archivo' => "required",
             'tipo_doc' => "required",
         ]);
@@ -99,7 +83,7 @@ class DocumentoController extends Controller
     public function editar(Documento $documento)
     {
         $tipos = TipoDoc::all();
-        return view('docEdit', compact('documento', 'tipos'));
+        return view('layouts.expedientes.editar', compact('documento', 'tipos'));
     }
 
     public function actualizar(Request $request, Documento $documento)
@@ -107,7 +91,6 @@ class DocumentoController extends Controller
         $request->validate([
             'numero' => "required",
             'resumen' => "required",
-            'texto' => "required",
             'fecha' => "required",
             'archivo' => "required",
             'tipo_doc' => "required",

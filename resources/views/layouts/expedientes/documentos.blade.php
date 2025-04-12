@@ -1,39 +1,16 @@
 @extends('layout')
 
 @section('content')
-    {{-- <div class="card">
-        <div class="card-block">
-            <label for="selectTipo">Tipo de Documento</label>
-            <select class="browser-default custom-select" name="selectTipo" id="selectTipo">
-                @foreach ($tipos as $tipo)
-                    <option value="{{ $tipo->tipo_doc_id }}" @if ($tipo == "{{ $tipo->tipo_doc_id }}") selected @endif>
-                        {{ $tipo->nombre }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-
-    </div> --}}
-
     <div class="card">
         <div class="card-body">
-            <nav class="navbar navbar-light float-right">
+            <nav class="navbar navbar-light flex justify-between items-center px-4">
+                <h1 class="text-xl font-bold">Expedientes del Consejo Directivo</h1>
                 <form class="form-inline">
-                    {{--
-                    <label for="selectTipo">Año</label>
-                    
-                    <select class="browser-default custom-select" name="year">
-                        @foreach ($periodos as $p)
-                            <option value="{{ $p->year }}" >
-                                {{ $p->year }}
-                            </option>
-                        @endforeach
-                    </select> 
-                    --}}
-                    <input name="buscarpor" style="width:500px" class="form-control mr-sm-2" type="search"
-                        placeholder="Ingresar el texto a buscar y presionar la tecla ENTER" aria-label="Search">
+                    <input name="buscarpor" style="width:500px" class="form-control w-full" type="search"
+                        placeholder="Buscar al presionar ENTER" aria-label="Search">
                 </form>
             </nav>
+
 
             <table id="DocsTable" class="table table-striped">
                 <thead class="thead-dark">

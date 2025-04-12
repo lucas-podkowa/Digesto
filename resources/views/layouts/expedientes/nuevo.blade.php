@@ -47,17 +47,15 @@
 
             <div class="col-sm-8">
                 <label>Resúmen</label>
-                <textarea class="form-control" name=resumen rows="3"
-                    placeholder="Redactar ...">{{ old('resumen') }}</textarea>
+                <textarea class="form-control" name=resumen rows="3" placeholder="Redactar ...">{{ old('resumen') }}</textarea>
                 @error('resumen')
                     <small>*{{ $message }}</small>
                 @enderror
             </div>
-            
+
             <div class="col-sm-8">
                 <label>Contenido</label>
-                <textarea class="form-control" name=texto rows="10"
-                    placeholder="Texto completo del Documento ...">{{ old('texto') }}</textarea>
+                <textarea class="form-control" name=texto rows="10" placeholder="Texto completo del Documento ...">{{ old('texto') }}</textarea>
                 @error('texto')
                     <small>*{{ $message }}</small>
                 @enderror
@@ -71,8 +69,9 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                         </div>
-                        <input type="text" name="fecha" value="{{ old('fecha') }}" class="form-control" id="datemask"
-                            data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
+                        <input type="text" name="fecha" value="{{ old('fecha') }}" class="form-control"
+                            id="datemask" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy"
+                            data-mask>
                     </div>
                     @error('fecha')
                         <small>*{{ $message }}</small>
